@@ -55,17 +55,13 @@ the use of *this fixed-width font*.
 
 ## Terminology
 
-This specification defines the following terms:
+This specification uses the following terms:
 
-- **Account**: The Claims about a user in the RPs identity register.
+- **OP**: The OpenID Provider as defined in [OpenID Connect].
 
-- **Command**: An instruction from an OP to an RP. It is a synchronous request and response.
+- **RP**: The Relying Party as defined in [OpenID Connect]. 
 
-- **Command Token**: A JSON Web Token (JWT) signed by the OP that contains Claims about the Command being issued.
-
-- **Command Endpoint**: The URL at the RP where OPs post Command Tokens.
-
-- **Tenant**: A logically isolated entity within an OP that represents a distinct organizational or administrative boundary. An OP may have a single Tenant, or multiple Tenants. The Tenant may contain Accounts managed by individuals, or may contain Accounts managed by an organization.
+The parameters **dpop_jkt** and **DPoP** as defined in [RFC9449]
 
 ## Protocol Profile Overview
 
