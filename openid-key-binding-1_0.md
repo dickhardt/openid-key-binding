@@ -24,7 +24,7 @@ surname="Heilman"
 fullname="Ethan Heilman"
 organization="Cloudflare"
     [author.address]
-    email = "eheilman@cloudflare.com"
+    email = "ethan.r.heilman@gmail.com"
 
 %%%
 
