@@ -65,22 +65,26 @@ The parameters **dpop_jkt** and **DPoP** as defined in [RFC9449]
 
 ## Protocol Profile Overview
 
-This specification profiles how to bind a public key to an ID Token by specifying the inclusion of:
+This specification profiles how to bind a public key to an ID Token by:
 
-1. the `dpop_jkt` parameter in the OpenID Connect Authentication Request
-2. the `DPoP` header in the Token Request to the `token_endpoint`
-3. the `cnf` claim containing the public key in the returned ID Token
+1. adding the `dpop_jkt` parameter to the OpenID Connect Authentication Request
+2. receiving the authorization `code` as usual in the Authentication Response
+3. adding the `DPoP` header that includes the `code` as a claim to the Token Request to the OP `token_endpoint`
+4. adding the `cnf` claim containing the public key to the returned ID Token
 
 ```
 +------+                              +------+
 |      |-- Authentication Request --->|      |
 |  RP  |   (1) dpop_jkt parameter     |  OP  | 
 |      |                              |      | 
+|      |<-- Authentication Response --|      |
+|      |   (2) authorization code     |      | 
+|      |                              |      | 
 |      |-- Token Request ------------>|      |
-|      |   (2) DPoP header            |      |
+|      |   (3) DPoP header            |      |
 |      |                              |      |
 |      |<-- Token Response -----------|      |
-|      |   (3) cnf claim containing   |      |
+|      |   (4) cnf claim containing   |      |
 |      |   the public key in ID Token |      | 
 +------+                              +------+
 ```
@@ -116,9 +120,19 @@ If the key provided was not previously bound to the client, the OP SHOULD inform
 
 If the OP does not support key binding for the client, it MUST return the OAuth error **TBC**
 
+## Authentication Response
+
+On successful authentication of, and consent from the user, the OP returns an authorization `code`.
+
+Following is a non-normative example of response:
+
+```text
+
+```
+
 ## Token Request
 
-include `DPoP` header 
+Generate a `DPoP` header that includes the authorization `code`, that then binds the `DPoP` header to the `code` in the body of the token request.
 
 Non-normative example:
 
@@ -131,6 +145,8 @@ If a DPoP header is included in the token request to the RP, and the `dpop_jkt` 
 > This prevents an existing deployment using DPoP for access token from having them included in ID Tokens accidently.
 
 The OP MUST perform all verification steps as described in [RFC9449] section 5.
+
+In addition, the OP MUST also confirm the `code` in the DPoP token matches the `code` in the token request.
 
 
 ## Token Response 
