@@ -94,11 +94,19 @@ This specification profiles how to bind a public key to an ID Token by:
 If the RP is running on a device that supports a web browser, it makes an authorization request per [OpenID Connect] 3.1. In addition to the `scope` parameter containing `openid`, and the `response_type` having the value `code`, the request parameters MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint [RFC7638] of the proof-of-possession public key using the SHA-256 hash function, as defined in [RFC9449] section 10.
 
 > require `nonce`?
+> require a special scope for this?
 
 Following is a non-normative example of an authentication request using the authorization code flow:
 
 ```text
-
+GET /authorize?
+response_type=code
+&dpop_jkt=<replace with real jkt>
+&scope=openid%20profile%20email
+&client_id=s6BhdRkqt3
+&state=af0ifjsldkj
+&redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb HTTP/1.1
+Host: server.example.com
 ```
 
 If the OP does not support key binding for the client, it MUST return the OAuth error **TBC**
@@ -133,11 +141,20 @@ Following is a non-normative example of response:
 ## Token Request
 
 Generate a `DPoP` header that includes the authorization `code`, that then binds the `DPoP` header to the `code` in the body of the token request.
+To do this we set the `nonce` claim of `DPoP` header to the authorization `code`.
+The `nonce` claim in the `DPoP` is specified in [RFC9449] section 4.2 and is not the same as the ID Token `nonce` claim defined in [OpenID Connect] 3.1.
 
 Non-normative example:
 
 ```text
+POST /token HTTP/1.1
+Host: server.example.com
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
+DPoP: <replace with BASE64URL_DPOP_HEADER>
 
+grant_type=authorization_code&code=SplxlOBeZQQYbYS6WxSbIA
+&redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb
 ```
 
 If a DPoP header is included in the token request to the RP, and the `dpop_jkt` parameter was not included in the authentication request, the OP MUST NOT include the `cnf` claim in the ID Token.
@@ -146,7 +163,7 @@ If a DPoP header is included in the token request to the RP, and the `dpop_jkt` 
 
 The OP MUST perform all verification steps as described in [RFC9449] section 5.
 
-In addition, the OP MUST also confirm the `code` in the DPoP token matches the `code` in the token request.
+In addition, the OP MUST also confirm the `code` in the DPoP token `nonce` claim matches the `code` in the token request.
 
 
 ## Token Response 
@@ -158,7 +175,24 @@ If the token request was successful, the OP MUST return an ID Token containing t
 Non-normative example of the ID Token payload:
 
 ```json
-
+{
+    "iss": "https://server.example.com",
+    "sub": "24400320",
+    "aud": "s6BhdRkqt3",
+    "nonce": "n-0S6_WzA2Mj",
+    "exp": 1311281970,
+    "iat": 1311280970,
+    "cnf":
+        {
+            "jwk": {
+                "alg":"ES256",
+                "crv":"P-256",
+                "kty":"EC",
+                "x":"upGvUDA-8xcAXC0zIrtWFMQKRE2GbDfHdALRqiXvOOo",
+                "y":"tV8NLRhUJofsLbY90bxDu5Mb4xw_svf1F8TZNc-2VuM"
+            }
+        }
+}
 ```
 
 
