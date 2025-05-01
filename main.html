@@ -1405,11 +1405,19 @@ the use of <em>this fixed-width font</em>.<a href="#section-1.1-2" class="pilcro
         </h3>
 <p id="section-1.4-1">If the RP is running on a device that supports a web browser, it makes an authorization request per [OpenID Connect] 3.1. In addition to the <code>scope</code> parameter containing <code>openid</code>, and the <code>response_type</code> having the value <code>code</code>, the request parameters MUST include the <code>dpop_jkt</code> parameter having the value of the JWK Thumbprint [RFC7638] of the proof-of-possession public key using the SHA-256 hash function, as defined in [RFC9449] section 10.<a href="#section-1.4-1" class="pilcrow">¶</a></p>
 <blockquote id="section-1.4-2">
-          <p id="section-1.4-2.1">require <code>nonce</code>?<a href="#section-1.4-2.1" class="pilcrow">¶</a></p>
+          <p id="section-1.4-2.1">require <code>nonce</code>?
+require a special scope for this?<a href="#section-1.4-2.1" class="pilcrow">¶</a></p>
 </blockquote>
 <p id="section-1.4-3">Following is a non-normative example of an authentication request using the authorization code flow:<a href="#section-1.4-3" class="pilcrow">¶</a></p>
 <div class="lang-text sourcecode" id="section-1.4-4">
-<pre>
+<pre>GET /authorize?
+response_type=code
+&amp;dpop_jkt=&lt;replace with real jkt&gt;
+&amp;scope=openid%20profile%20email
+&amp;client_id=s6BhdRkqt3
+&amp;state=af0ifjsldkj
+&amp;redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb HTTP/1.1
+Host: server.example.com
 </pre><a href="#section-1.4-4" class="pilcrow">¶</a>
 </div>
 <p id="section-1.4-5">If the OP does not support key binding for the client, it MUST return the OAuth error <strong>TBC</strong><a href="#section-1.4-5" class="pilcrow">¶</a></p>
@@ -1451,10 +1459,19 @@ the use of <em>this fixed-width font</em>.<a href="#section-1.1-2" class="pilcro
         <h3 id="name-token-request">
 <a href="#section-1.7" class="section-number selfRef">1.7. </a><a href="#name-token-request" class="section-name selfRef">Token Request</a>
         </h3>
-<p id="section-1.7-1">Generate a <code>DPoP</code> header that includes the authorization <code>code</code>, that then binds the <code>DPoP</code> header to the <code>code</code> in the body of the token request.<a href="#section-1.7-1" class="pilcrow">¶</a></p>
+<p id="section-1.7-1">Generate a <code>DPoP</code> header that includes the authorization <code>code</code>, that then binds the <code>DPoP</code> header to the <code>code</code> in the body of the token request.
+To do this we set the <code>nonce</code> claim of <code>DPoP</code> header to the authorization <code>code</code>.
+The <code>nonce</code> claim in the <code>DPoP</code> is specified in [RFC9449] section 4.2 and is not the same as the ID Token <code>nonce</code> claim defined in [OpenID Connect] 3.1.<a href="#section-1.7-1" class="pilcrow">¶</a></p>
 <p id="section-1.7-2">Non-normative example:<a href="#section-1.7-2" class="pilcrow">¶</a></p>
 <div class="lang-text sourcecode" id="section-1.7-3">
-<pre>
+<pre>POST /token HTTP/1.1
+Host: server.example.com
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
+DPoP: &lt;replace with BASE64URL_DPOP_HEADER&gt;
+
+grant_type=authorization_code&amp;code=SplxlOBeZQQYbYS6WxSbIA
+&amp;redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb
 </pre><a href="#section-1.7-3" class="pilcrow">¶</a>
 </div>
 <p id="section-1.7-4">If a DPoP header is included in the token request to the RP, and the <code>dpop_jkt</code> parameter was not included in the authentication request, the OP MUST NOT include the <code>cnf</code> claim in the ID Token.<a href="#section-1.7-4" class="pilcrow">¶</a></p>
@@ -1462,7 +1479,7 @@ the use of <em>this fixed-width font</em>.<a href="#section-1.1-2" class="pilcro
           <p id="section-1.7-5.1">This prevents an existing deployment using DPoP for access token from having them included in ID Tokens accidently.<a href="#section-1.7-5.1" class="pilcrow">¶</a></p>
 </blockquote>
 <p id="section-1.7-6">The OP MUST perform all verification steps as described in [RFC9449] section 5.<a href="#section-1.7-6" class="pilcrow">¶</a></p>
-<p id="section-1.7-7">In addition, the OP MUST also confirm the <code>code</code> in the DPoP token matches the <code>code</code> in the token request.<a href="#section-1.7-7" class="pilcrow">¶</a></p>
+<p id="section-1.7-7">In addition, the OP MUST also confirm the <code>code</code> in the DPoP token <code>nonce</code> claim matches the <code>code</code> in the token request.<a href="#section-1.7-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="token-response">
@@ -1476,7 +1493,24 @@ the use of <em>this fixed-width font</em>.<a href="#section-1.1-2" class="pilcro
 </blockquote>
 <p id="section-1.8-3">Non-normative example of the ID Token payload:<a href="#section-1.8-3" class="pilcrow">¶</a></p>
 <div class="lang-json sourcecode" id="section-1.8-4">
-<pre>
+<pre>{
+    "iss": "https://server.example.com",
+    "sub": "24400320",
+    "aud": "s6BhdRkqt3",
+    "nonce": "n-0S6_WzA2Mj",
+    "exp": 1311281970,
+    "iat": 1311280970,
+    "cnf":
+        {
+            "jwk": {
+                "alg":"ES256",
+                "crv":"P-256",
+                "kty":"EC",
+                "x":"upGvUDA-8xcAXC0zIrtWFMQKRE2GbDfHdALRqiXvOOo",
+                "y":"tV8NLRhUJofsLbY90bxDu5Mb4xw_svf1F8TZNc-2VuM"
+            }
+        }
+}
 </pre><a href="#section-1.8-4" class="pilcrow">¶</a>
 </div>
 </section>
