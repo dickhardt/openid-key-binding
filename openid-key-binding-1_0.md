@@ -101,7 +101,7 @@ Following is a non-normative example of an authentication request using the auth
 ```text
 GET /authorize?
 response_type=code
-&dpop_jkt=<replace with real jkt>
+&dpop_jkt=1f2e6338febe335e2cbaa7c7154c3cbdcfd8650f95c5fe7206bb6360e37f4b5a
 &scope=openid%20profile%20email
 &client_id=s6BhdRkqt3
 &state=af0ifjsldkj
@@ -151,8 +151,12 @@ POST /token HTTP/1.1
 Host: server.example.com
 Content-Type: application/x-www-form-urlencoded
 Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
-DPoP: <replace with BASE64URL_DPOP_HEADER>
-
+DPoP: eyJhbGciOiJFUzI1NiJ9.eyJ0eXAiOiJkcG9wK2p3dCIsImFsZyI6IkV\
+ TMjU2IiwiandrIjp7ImNydiI6IlAtMjU2Iiwia3R5IjoiRUMiLCJ4IjoibWptR\
+ m1MZm9wVmkwZXRfYTZmZFhUTnJqYVUwR1dlZFN0Y3NfRzU4OEkyMCIsInkiOiJ\
+ sMFZwRXlSYzdTdUpfdHFhd2NaQ2VLLXVUOEVPVnF4N3NqTHJGeUJTUllZIn0sI\
+ m5vbmNlIjoiU3BseGxPQmVaUVFZYllTNld4U2JJQSJ9.cp8uN3kHAMS9fhGH7T\
+ vTSKwH5oNJzAeMhIrgD_HQHGhgt_N1xQHdHiMkn7AMj3UDkwoNOW4Qqak
 grant_type=authorization_code&code=SplxlOBeZQQYbYS6WxSbIA
 &redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb
 ```
@@ -186,10 +190,10 @@ Non-normative example of the ID Token payload:
         {
             "jwk": {
                 "alg":"ES256",
-                "crv":"P-256",
-                "kty":"EC",
-                "x":"upGvUDA-8xcAXC0zIrtWFMQKRE2GbDfHdALRqiXvOOo",
-                "y":"tV8NLRhUJofsLbY90bxDu5Mb4xw_svf1F8TZNc-2VuM"
+                "crv": "P-256",
+                "kty": "EC",
+                "x": "mjmFmLfopVi0et_a6fdXTNrjaU0GWedStcs_G588I20",
+                "y": "l0VpEyRc7SuJ_tqawcZCeK-uT8EOVqx7sjLrFyBSRYY"
             }
         }
 }
