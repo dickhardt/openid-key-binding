@@ -10,23 +10,23 @@
 <meta content="
        OpenID Key Binding specifies how to bind a public key to an OpenID Connect ID Token using mechanisms defined in RFC 9449, OAuth 2.0 Demonstrating Proof of Possession (DPoP). 
     " name="description">
-<meta content="xml2rfc 3.28.1" name="generator">
+<meta content="xml2rfc 3.29.0" name="generator">
 <meta content="security" name="keyword">
 <meta content="openid" name="keyword">
 <meta content="lifecycle" name="keyword">
 <meta name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.28.1
-    Python 3.10.17
-    ConfigArgParse 1.7
+  xml2rfc 3.29.0
+    Python 3.10.18
+    ConfigArgParse 1.7.1
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.6
-    lxml 5.4.0
-    platformdirs 4.3.7
+    lxml 6.0.0
+    platformdirs 4.3.8
     pycountry 24.6.1
     PyYAML 6.0.2
-    requests 2.32.3
+    requests 2.32.4
     setuptools 65.5.0
     wcwidth 0.2.13
 -->
@@ -161,6 +161,12 @@ div {
 }
 svg {
   display: block;
+}
+@media print {
+  svg {
+    max-height: 850px;
+    max-width: 660px;
+  }
 }
 svg[font-family~="serif" i], svg [font-family~="serif" i] {
   font-family: var(--font-serif);
@@ -1213,7 +1219,7 @@ li > p:last-of-type:only-child {
 <thead><tr>
 <td class="left"></td>
 <td class="center">openid-key-binding</td>
-<td class="right">May 2025</td>
+<td class="right">July 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Hardt &amp; Heilman</td>
@@ -1228,7 +1234,7 @@ li > p:last-of-type:only-child {
 <dd class="workgroup">OpenID Connect</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-05-01" class="published">1 May 2025</time>
+<time datetime="2025-07-13" class="published">13 July 2025</time>
     </dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
@@ -1403,23 +1409,23 @@ the use of <em>this fixed-width font</em>.<a href="#section-1.1-2" class="pilcro
         <h3 id="name-authentication-request-auth">
 <a href="#section-1.4" class="section-number selfRef">1.4. </a><a href="#name-authentication-request-auth" class="section-name selfRef">Authentication Request - Authorization Code Flow</a>
         </h3>
-<p id="section-1.4-1">If the RP is running on a device that supports a web browser, it makes an authorization request per [OpenID Connect] 3.1. In addition to the <code>scope</code> parameter containing <code>openid</code>, and the <code>response_type</code> having the value <code>code</code>, the request parameters MUST include the <code>dpop_jkt</code> parameter having the value of the JWK Thumbprint [RFC7638] of the proof-of-possession public key using the SHA-256 hash function, as defined in [RFC9449] section 10.<a href="#section-1.4-1" class="pilcrow">¶</a></p>
-<blockquote id="section-1.4-2">
-          <p id="section-1.4-2.1">require <code>nonce</code>?
-require a special scope for this?<a href="#section-1.4-2.1" class="pilcrow">¶</a></p>
-</blockquote>
-<p id="section-1.4-3">Following is a non-normative example of an authentication request using the authorization code flow:<a href="#section-1.4-3" class="pilcrow">¶</a></p>
-<div class="lang-text sourcecode" id="section-1.4-4">
+<p id="section-1.4-1">If the RP is running on a device that supports a web browser, it makes an authorization request per [OpenID Connect] 3.1. In addition to the <code>scope</code> parameter containing <code>openid</code>, and the <code>response_type</code> having the value <code>code</code>, the scope must also include <code>dpop</code>, the request parameters MUST include the <code>dpop_jkt</code> parameter having the value of the JWK Thumbprint [RFC7638] of the proof-of-possession public key using the SHA-256 hash function, as defined in [RFC9449] section 10.<a href="#section-1.4-1" class="pilcrow">¶</a></p>
+<p id="section-1.4-2">Following is a non-normative example of an authentication request using the authorization code flow:<a href="#section-1.4-2" class="pilcrow">¶</a></p>
+<div class="lang-text sourcecode" id="section-1.4-3">
 <pre>GET /authorize?
 response_type=code
 &amp;dpop_jkt=1f2e6338febe335e2cbaa7c7154c3cbdcfd8650f95c5fe7206bb6360e37f4b5a
-&amp;scope=openid%20profile%20email
+&amp;scope=openid%20profile%20email%20dpop
 &amp;client_id=s6BhdRkqt3
 &amp;state=af0ifjsldkj
+&amp;nonce=2a50f9ea812f9bb4c8f7
 &amp;redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb HTTP/1.1
 Host: server.example.com
-</pre><a href="#section-1.4-4" class="pilcrow">¶</a>
+</pre><a href="#section-1.4-3" class="pilcrow">¶</a>
 </div>
+<blockquote id="section-1.4-4">
+          <p id="section-1.4-4.1">require <code>nonce</code>?<a href="#section-1.4-4.1" class="pilcrow">¶</a></p>
+</blockquote>
 <p id="section-1.4-5">If the OP does not support key binding for the client, it MUST return the OAuth error <strong>TBC</strong><a href="#section-1.4-5" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1428,7 +1434,7 @@ Host: server.example.com
         <h3 id="name-authentication-request-devi">
 <a href="#section-1.5" class="section-number selfRef">1.5. </a><a href="#name-authentication-request-devi" class="section-name selfRef">Authentication Request - Device Authorization Flow</a>
         </h3>
-<p id="section-1.5-1">If the RP is running on a device that does not support a web browser, it makes an authorization request per [RFC8628] 3.1. In the request, the <code>scope</code> parameter MUST contain <code>openid</code> and the request MUST include the <code>dpop_jkt</code> parameter having the value of the JWK Thumbprint [RFC7638] of the proof-of-possession public key using the SHA-256 hash function, as defined in [RFC9449] section 10.<a href="#section-1.5-1" class="pilcrow">¶</a></p>
+<p id="section-1.5-1">If the RP is running on a device that does not support a web browser, it makes an authorization request per [RFC8628] 3.1. In the request, the <code>scope</code> parameter MUST contain both <code>openid</code> and <code>dpop</code>. The request MUST include the <code>dpop_jkt</code> parameter having the value of the JWK Thumbprint [RFC7638] of the proof-of-possession public key using the SHA-256 hash function, as defined in [RFC9449] section 10.<a href="#section-1.5-1" class="pilcrow">¶</a></p>
 <blockquote id="section-1.5-2">
           <p id="section-1.5-2.1">require <code>nonce</code>?<a href="#section-1.5-2.1" class="pilcrow">¶</a></p>
 </blockquote>
