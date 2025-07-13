@@ -91,10 +91,7 @@ This specification profiles how to bind a public key to an ID Token by:
 
 ## Authentication Request - Authorization Code Flow
 
-If the RP is running on a device that supports a web browser, it makes an authorization request per [OpenID Connect] 3.1. In addition to the `scope` parameter containing `openid`, and the `response_type` having the value `code`, the request parameters MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint [RFC7638] of the proof-of-possession public key using the SHA-256 hash function, as defined in [RFC9449] section 10.
-
-> require `nonce`?
-> require a special scope for this?
+If the RP is running on a device that supports a web browser, it makes an authorization request per [OpenID Connect] 3.1. In addition to the `scope` parameter containing `openid`, and the `response_type` having the value `code`, the scope must also include `dpop`, the request parameters MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint [RFC7638] of the proof-of-possession public key using the SHA-256 hash function, as defined in [RFC9449] section 10.
 
 Following is a non-normative example of an authentication request using the authorization code flow:
 
@@ -102,21 +99,22 @@ Following is a non-normative example of an authentication request using the auth
 GET /authorize?
 response_type=code
 &dpop_jkt=1f2e6338febe335e2cbaa7c7154c3cbdcfd8650f95c5fe7206bb6360e37f4b5a
-&scope=openid%20profile%20email
+&scope=openid%20profile%20email%20dpop
 &client_id=s6BhdRkqt3
 &state=af0ifjsldkj
+&nonce=2a50f9ea812f9bb4c8f7
 &redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb HTTP/1.1
 Host: server.example.com
 ```
+> require `nonce`?
 
 If the OP does not support key binding for the client, it MUST return the OAuth error **TBC**
 
 ## Authentication Request - Device Authorization Flow
 
-If the RP is running on a device that does not support a web browser, it makes an authorization request per [RFC8628] 3.1. In the request, the `scope` parameter MUST contain `openid` and the request MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint [RFC7638] of the proof-of-possession public key using the SHA-256 hash function, as defined in [RFC9449] section 10.
+If the RP is running on a device that does not support a web browser, it makes an authorization request per [RFC8628] 3.1. In the request, the `scope` parameter MUST contain both `openid` and `dpop`. The request MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint [RFC7638] of the proof-of-possession public key using the SHA-256 hash function, as defined in [RFC9449] section 10.
 
 > require `nonce`?
-
 
 Following is a non-normative example of an authentication request using the device authorization flow:
 
