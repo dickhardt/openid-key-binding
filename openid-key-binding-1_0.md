@@ -93,6 +93,8 @@ This specification profiles how to bind a public key to an ID Token by:
 
 If the RP is running on a device that supports a web browser, it makes an authorization request per [OpenID Connect] 3.1. In addition to the `scope` parameter containing `openid`, and the `response_type` having the value `code`, the scope must also include `dpop`, the request parameters MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint [RFC7638] of the proof-of-possession public key using the SHA-256 hash function, as defined in [RFC9449] section 10.
 
+The authentication request MUST fail if `dpop` is specified in the `scope` but the request does not include the `dpop_jwt` parameter or `dpop` is not specified in the `scope` and the request includes `dpop_jwt` parameter.
+
 Following is a non-normative example of an authentication request using the authorization code flow:
 
 ```text
@@ -203,6 +205,12 @@ Non-normative example of the ID Token payload:
 *To be completed.*
 
 # Security Considerations
+
+The public key bound ID Tokens in this document are designed to only provide authentication of a party via the completion of a proof of possession. As such the authentication secret of the ID Token is not the JWT itself, but instead a signing key. This differs from authentication offered by bearer tokens, as is currently done in OpenID Connect, in which the ID Token itself is the authentication secret.
+
+Proof of possession authentication provides a greater level of security than bearer token authentication. To authenticate with a bearer token, the authentication secret must be sent over the internet to the authenticating party. This presents a risk that the authentication secret be stolen is transit or stolen at the server endpoint and replayed. With proof of possession, the authentication secret, i.e. the signing key, never needs to leave the client. This reduces the chance of exposure and allows the client to use additional security mechanisms to protect the signing key e.g. HSMs (Hardware Security Modules) or web browser based SSMs (Software Security Modules).
+
+Public key bound ID Tokens must not be accepted as a form of bearer token authentication. If bearer token authentication is desired, bearer ID Tokens should be used instead.
 
 *To be completed.*
 
