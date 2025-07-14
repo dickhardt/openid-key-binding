@@ -1234,7 +1234,7 @@ li > p:last-of-type:only-child {
 <dd class="workgroup">OpenID Connect</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-07-13" class="published">13 July 2025</time>
+<time datetime="2025-07-14" class="published">14 July 2025</time>
     </dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
@@ -1410,8 +1410,9 @@ the use of <em>this fixed-width font</em>.<a href="#section-1.1-2" class="pilcro
 <a href="#section-1.4" class="section-number selfRef">1.4. </a><a href="#name-authentication-request-auth" class="section-name selfRef">Authentication Request - Authorization Code Flow</a>
         </h3>
 <p id="section-1.4-1">If the RP is running on a device that supports a web browser, it makes an authorization request per [OpenID Connect] 3.1. In addition to the <code>scope</code> parameter containing <code>openid</code>, and the <code>response_type</code> having the value <code>code</code>, the scope must also include <code>dpop</code>, the request parameters MUST include the <code>dpop_jkt</code> parameter having the value of the JWK Thumbprint [RFC7638] of the proof-of-possession public key using the SHA-256 hash function, as defined in [RFC9449] section 10.<a href="#section-1.4-1" class="pilcrow">¶</a></p>
-<p id="section-1.4-2">Following is a non-normative example of an authentication request using the authorization code flow:<a href="#section-1.4-2" class="pilcrow">¶</a></p>
-<div class="lang-text sourcecode" id="section-1.4-3">
+<p id="section-1.4-2">The authentication request MUST fail if <code>dpop</code> is specified in the <code>scope</code> but the request does not include the <code>dpop_jwt</code> parameter or <code>dpop</code> is not specified in the <code>scope</code> and the request includes <code>dpop_jwt</code> parameter.<a href="#section-1.4-2" class="pilcrow">¶</a></p>
+<p id="section-1.4-3">Following is a non-normative example of an authentication request using the authorization code flow:<a href="#section-1.4-3" class="pilcrow">¶</a></p>
+<div class="lang-text sourcecode" id="section-1.4-4">
 <pre>GET /authorize?
 response_type=code
 &amp;dpop_jkt=1f2e6338febe335e2cbaa7c7154c3cbdcfd8650f95c5fe7206bb6360e37f4b5a
@@ -1421,12 +1422,12 @@ response_type=code
 &amp;nonce=2a50f9ea812f9bb4c8f7
 &amp;redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb HTTP/1.1
 Host: server.example.com
-</pre><a href="#section-1.4-3" class="pilcrow">¶</a>
+</pre><a href="#section-1.4-4" class="pilcrow">¶</a>
 </div>
-<blockquote id="section-1.4-4">
-          <p id="section-1.4-4.1">require <code>nonce</code>?<a href="#section-1.4-4.1" class="pilcrow">¶</a></p>
+<blockquote id="section-1.4-5">
+          <p id="section-1.4-5.1">require <code>nonce</code>?<a href="#section-1.4-5.1" class="pilcrow">¶</a></p>
 </blockquote>
-<p id="section-1.4-5">If the OP does not support key binding for the client, it MUST return the OAuth error <strong>TBC</strong><a href="#section-1.4-5" class="pilcrow">¶</a></p>
+<p id="section-1.4-6">If the OP does not support key binding for the client, it MUST return the OAuth error <strong>TBC</strong><a href="#section-1.4-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authentication-request-device-authorization-flow">
@@ -1540,7 +1541,10 @@ grant_type=authorization_code&amp;code=SplxlOBeZQQYbYS6WxSbIA
       <h2 id="name-security-considerations">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-3-1"><em>To be completed.</em><a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1">The public key bound ID Tokens in this document are designed to only provide authentication of a party via the completion of a proof of possession. As such the authentication secret of the ID Token is not the JWT itself, but instead a signing key. This differs from authentication offered by bearer tokens, as is currently done in OpenID Connect, in which the ID Token itself is the authentication secret.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-2">Proof of possession authentication provides a greater level of security than bearer token authentication. To authenticate with a bearer token, the authentication secret must be sent over the internet to the authenticating party. This presents a risk that the authentication secret be stolen is transit or stolen at the server endpoint and replayed. With proof of possession, the authentication secret, i.e. the signing key, never needs to leave the client. This reduces the chance of exposure and allows the client to use additional security mechanisms to protect the signing key e.g. HSMs (Hardware Security Modules) or web browser based SSMs (Software Security Modules).<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-3">Public key bound ID Tokens must not be accepted as a form of bearer token authentication. If bearer token authentication is desired, bearer ID Tokens should be used instead.<a href="#section-3-3" class="pilcrow">¶</a></p>
+<p id="section-3-4"><em>To be completed.</em><a href="#section-3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
