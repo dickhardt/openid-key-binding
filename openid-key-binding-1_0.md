@@ -38,7 +38,6 @@ OpenID Key Binding specifies how to bind a public key to an OpenID Connect ID To
 
 Some applications use proof of possession of a private key for authentication. OpenID Connect provides a protocol to delegate authentication and obtain identity claims to another service. This document specifies an extension to OpenID Connect to bind a public key to an OpenID Connect ID Token by profiling OpenID Connect 1.0, RFC8628 - OAuth 2.0 Device Authorization Grant, and RFC9449 - OAuth 2.0 Demonstrating Proof of Possession (DPoP).
 
-
 ## Requirements Notation and Conventions
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -108,15 +107,12 @@ response_type=code
 &redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb HTTP/1.1
 Host: server.example.com
 ```
-> require `nonce`?
 
 If the OP does not support key binding for the client, it MUST return the OAuth error **TBC**
 
 ## Authentication Request - Device Authorization Flow
 
 If the RP is running on a device that does not support a web browser, it makes an authorization request per [RFC8628] 3.1. In the request, the `scope` parameter MUST contain both `openid` and `dpop`. The request MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint [RFC7638] of the proof-of-possession public key using the SHA-256 hash function, as defined in [RFC9449] section 10.
-
-> require `nonce`?
 
 Following is a non-normative example of an authentication request using the device authorization flow:
 
@@ -163,14 +159,13 @@ grant_type=authorization_code&code=SplxlOBeZQQYbYS6WxSbIA
 
 If a DPoP header is included in the token request to the RP, and the `dpop_jkt` parameter was not included in the authentication request, the OP MUST NOT include the `cnf` claim in the ID Token.
 
-> This prevents an existing deployment using DPoP for access token from having them included in ID Tokens accidently.
+> This prevents an existing deployment using DPoP for access token from having them included in ID Tokens accidentally.
 
 The OP MUST perform all verification steps as described in [RFC9449] section 5.
 
 In addition, the OP MUST also confirm the `code` in the DPoP token `nonce` claim matches the `code` in the token request.
 
-
-## Token Response 
+## Token Response
 
 If the token request was successful, the OP MUST return an ID Token containing the `cnf` claim as defined in [7800] set to the `
 
@@ -199,20 +194,19 @@ Non-normative example of the ID Token payload:
 }
 ```
 
-
 # Privacy Considerations
 
 *To be completed.*
 
 # Security Considerations
 
-The public key bound ID Tokens in this document are designed to only provide authentication of a party via the completion of a proof of possession. As such the authentication secret of the ID Token is not the JWT itself, but instead a signing key. This differs from authentication offered by bearer tokens, as is currently done in OpenID Connect, in which the ID Token itself is the authentication secret.
+Proof of possession authentication provides a greater level of security than bearer token authentication. To authenticate with a bearer token, the authentication secret must be sent over the internet to the authenticating party. This presents a risk that the authentication secret be stolen is transit or stolen at the server endpoint and replayed. With proof of possession, the authentication secret, i.e. the private key, never needs to leave the client. This reduces the chance of exposure and allows the client to use additional security mechanisms to protect the private key such as HSMs (Hardware Security Modules) or web browser based SSMs (Software Security Modules).
 
-Proof of possession authentication provides a greater level of security than bearer token authentication. To authenticate with a bearer token, the authentication secret must be sent over the internet to the authenticating party. This presents a risk that the authentication secret be stolen is transit or stolen at the server endpoint and replayed. With proof of possession, the authentication secret, i.e. the signing key, never needs to leave the client. This reduces the chance of exposure and allows the client to use additional security mechanisms to protect the signing key e.g. HSMs (Hardware Security Modules) or web browser based SSMs (Software Security Modules).
+Public key bound ID Tokens provide a higher level security than bear ID Tokens by using proof of possession rather than bearer authentication. For this reason public key bound ID Tokens MUST NOT be accepted as a form of bearer token authentication.If bearer token authentication is desired, bearer ID Tokens should be used instead.
 
-Public key bound ID Tokens must not be accepted as a form of bearer token authentication. If bearer token authentication is desired, bearer ID Tokens should be used instead.
+Internal to a closed ecosystem, the private key associated with a public key bound ID Token MAY be used to sign and authenticate the content of message. This used requires that the user's agent enforce secure domain separation via some other protocol between signatures on messages and proof of possession signatures on challenges. This is because in proof of possession the user signs any message provided as a challenge without regard for its content.
 
-*To be completed.*
+The content of such signed messages MUST NOT be treated as authenticated outside of that ecosystem.
 
 # IANA Considerations
 
