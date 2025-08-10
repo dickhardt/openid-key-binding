@@ -1,6 +1,6 @@
 %%%
-title = "OpenID Key Binding 1.0 - draft 00"
-abbrev = "openid-key-binding"
+title = "OpenID Connect Key Binding 1.0 - draft 00"
+abbrev = "openid-connect-key-binding"
 ipr = "none"
 workgroup = "OpenID Connect"
 keyword = ["security", "openid", "lifecycle"]
@@ -36,7 +36,16 @@ OpenID Key Binding specifies how to bind a public key to an OpenID Connect ID To
 
 # Introduction
 
-Some applications use proof of possession of a private key for authentication. OpenID Connect provides a protocol to delegate authentication and obtain identity claims to another service. This document specifies an extension to OpenID Connect to bind a public key to an OpenID Connect ID Token by profiling OpenID Connect 1.0, RFC8628 - OAuth 2.0 Device Authorization Grant, and RFC9449 - OAuth 2.0 Demonstrating Proof of Possession (DPoP).
+OpenID Connect is a protocol that enables a Relying Party (RP) to delegate authentication and obtain identity claims to an OpenID Connect Provider (OP).
+
+When authenticating with OpenID Connect, RP provides a nonce in its authentication request. The ID Token signed and returned by the OP contains the nonce and claims about the user. When verifying the ID Token, the RP confirms it contains the nonce, binding the session that made the request to the response.
+
+When an RP wants to prove to another system that it has authenticated a user, it may present the ID Token as a bearer token. However, bearer tokens are vulnerable to theft and replay attacks - if an attacker intercepts the ID Token, they can impersonate the authenticated user to downstream systems that accept a ID Token as a bearer token.
+
+By binding a cryptographic key to the ID Token, the RP can prove to downstream systems not only that a user has been authenticated, but that the RP itself was the original recipient of that authentication. This transforms the ID Token from a vulnerable bearer token into a proof-of-possession token that provides stronger security guarantees.
+
+This specification profiles OpenID Connect 1.0, RFC8628 - OAuth 2.0 Device Authorization Grant, and RFC9449 - OAuth 2.0 Demonstrating Proof of Possession (DPoP) to enable cryptographically bound ID Tokens that resist theft and replay attacks while maintaining compatibility with existing OpenID Connect infrastructure.
+
 
 ## Requirements Notation and Conventions
 
@@ -66,21 +75,21 @@ The parameters **dpop_jkt** and **DPoP** as defined in [RFC9449]
 
 This specification profiles how to bind a public key to an ID Token by:
 
-1. adding the `dpop_jkt` parameter to the OpenID Connect Authentication Request
+1. adding the `dpop` scope and `dpop_jkt` parameter to the OpenID Connect Authentication Request
 2. receiving the authorization `code` as usual in the Authentication Response
-3. adding the `DPoP` header that includes the `code` as a claim to the Token Request to the OP `token_endpoint`
+3. adding the `DPoP` header that includes the `code` as a claim in the Token Request to the OP `token_endpoint`
 4. adding the `cnf` claim containing the public key to the returned ID Token
 
 ```
 +------+                              +------+
 |      |-- Authentication Request --->|      |
-|  RP  |   (1) dpop_jkt parameter     |  OP  | 
+|  RP  |   (1) dpop & dpop_jkt        |  OP  | 
 |      |                              |      | 
 |      |<-- Authentication Response --|      |
 |      |   (2) authorization code     |      | 
 |      |                              |      | 
 |      |-- Token Request ------------>|      |
-|      |   (3) DPoP header            |      |
+|      |   (3) DPoP header w/ code    |      |
 |      |                              |      |
 |      |<-- Token Response -----------|      |
 |      |   (4) cnf claim containing   |      |
@@ -90,9 +99,7 @@ This specification profiles how to bind a public key to an ID Token by:
 
 ## Authentication Request - Authorization Code Flow
 
-If the RP is running on a device that supports a web browser, it makes an authorization request per [OpenID Connect] 3.1. In addition to the `scope` parameter containing `openid`, and the `response_type` having the value `code`, the scope must also include `dpop`, the request parameters MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint [RFC7638] of the proof-of-possession public key using the SHA-256 hash function, as defined in [RFC9449] section 10.
-
-The authentication request MUST fail if `dpop` is specified in the `scope` but the request does not include the `dpop_jwt` parameter or `dpop` is not specified in the `scope` and the request includes `dpop_jwt` parameter.
+If the RP is running on a device that supports a web browser, it makes an authorization request per [OpenID Connect] 3.1. In addition to the `scope` parameter containing `openid`, and the `response_type` having the value `code`, the `scope` parameter MUST also include `dpop`, and the request MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint [RFC7638] of the proof-of-possession public key using the SHA-256 hash function, as defined in [RFC9449] section 10.
 
 Following is a non-normative example of an authentication request using the authorization code flow:
 
@@ -108,7 +115,8 @@ response_type=code
 Host: server.example.com
 ```
 
-If the OP does not support key binding for the client, it MUST return the OAuth error **TBC**
+If the OP does not support the `dpop` scope, it MUST return an error response with the error code `invalid_scope` per [RFC6749] 5.2.
+
 
 ## Authentication Request - Device Authorization Flow
 
@@ -117,28 +125,32 @@ If the RP is running on a device that does not support a web browser, it makes a
 Following is a non-normative example of an authentication request using the device authorization flow:
 
 ```text
+TBD
 
 ```
 
-If the key provided was not previously bound to the client, the OP SHOULD inform a user and obtain consent that a key binding will be done. 
 
-If the OP does not support key binding for the client, it MUST return the OAuth error **TBC**
+If the OP does not support the `dpop` scope, it MUST return an error response with the error code `invalid_scope` per [RFC6749] 5.2.
+
 
 ## Authentication Response
 
+
+If the key provided was not previously bound to the client, the OP SHOULD inform a user and obtain consent that a key binding will be done. 
+
 On successful authentication of, and consent from the user, the OP returns an authorization `code`.
 
-Following is a non-normative example of response:
+Following is a non-normative example of a response:
 
 ```text
-
+TBD
 ```
 
 ## Token Request
 
-Generate a `DPoP` header that includes the authorization `code`, that then binds the `DPoP` header to the `code` in the body of the token request.
-To do this we set the `nonce` claim of `DPoP` header to the authorization `code`.
-The `nonce` claim in the `DPoP` is specified in [RFC9449] section 4.2 and is not the same as the ID Token `nonce` claim defined in [OpenID Connect] 3.1.
+To obtain the ID Token, the RP generates a `DPoP` header, setting the `nonce` claim of the `DPoP` header to the value of the authorization code. This binds the authorization code to the token request. 
+
+Note the `nonce` claim in `DPoP` is specified in [RFC9449] section 4.2 and is not the same as the ID Token `nonce` claim defined in [OpenID Connect] 3.1.
 
 Non-normative example:
 
@@ -157,17 +169,17 @@ grant_type=authorization_code&code=SplxlOBeZQQYbYS6WxSbIA
 &redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb
 ```
 
-If a DPoP header is included in the token request to the RP, and the `dpop_jkt` parameter was not included in the authentication request, the OP MUST NOT include the `cnf` claim in the ID Token.
+If a DPoP header is included in the token request to the OP, and the `dpop_jkt` parameter was not included in the authentication request, the OP MUST NOT include the `cnf` claim in the ID Token.
 
 > This prevents an existing deployment using DPoP for access token from having them included in ID Tokens accidentally.
 
 The OP MUST perform all verification steps as described in [RFC9449] section 5.
 
-In addition, the OP MUST also confirm the `code` in the DPoP token `nonce` claim matches the `code` in the token request.
+In addition, the OP MUST also confirm the authorization code in the DPoP token `nonce` claim matches the `code` value in the token request.
 
 ## Token Response
 
-If the token request was successful, the OP MUST return an ID Token containing the `cnf` claim as defined in [7800] set to the jwk of the user's public key and with  `typ` set to `dpop+jwt` in the ID Token's protected header.
+If the token request was successful, the OP MUST return an ID Token containing the `cnf` claim as defined in [7800] set to the jwk of the user's public key and with  `typ` set to `dpop+id_token` in the ID Token's protected header.
 
 Non-normative example of the ID Token payload:
 
@@ -200,7 +212,7 @@ Non-normative example of the ID Token payload:
 
 Proof of possession authentication provides a greater level of security than bearer token authentication. To authenticate with a bearer token, the authentication secret must be sent over the internet to the authenticating party. This presents a risk that the authentication secret be stolen is transit or stolen at the server endpoint and replayed. With proof of possession, the authentication secret, i.e. the private key, never needs to leave the client. This reduces the chance of exposure and allows the client to use additional security mechanisms to protect the private key such as HSMs (Hardware Security Modules) or web browser based SSMs (Software Security Modules).
 
-Public key bound ID Tokens provide a higher level security than bear ID Tokens by using proof of possession rather than bearer authentication. For this reason public key bound ID Tokens MUST NOT be accepted as a form of bearer token authentication.If bearer token authentication is desired, bearer ID Tokens should be used instead.
+Public key bound ID Tokens provide a higher level security than bearer ID Tokens by using proof of possession rather than bearer authentication. For this reason public key bound ID Tokens MUST NOT be accepted as a form of bearer token authentication. If bearer token authentication is desired, bearer ID Tokens should be used instead.
 
 Within a closed ecosystem, the private key associated with a public key bound ID Token MAY be used to sign and authenticate the content of message. This use REQUIRES that the user's agent enforce secure domain separation via some other protocol between signatures on messages and proof of possession signatures on challenges. Domain separation is need to enforce that the user's signature on a proof of possession challenge message is not replayed in other contexts.
 
@@ -208,7 +220,10 @@ The content of such signed messages MUST NOT be treated as authenticated outside
 
 # IANA Considerations
 
-No new registrations.
+Media Type Registry
+The following entry should be added to the "Media Types" registry for the new JWT type:
+Type name: application
+Subtype name: dpop+id_token
 
 # References
 
