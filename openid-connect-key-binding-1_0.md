@@ -212,8 +212,10 @@ Non-normative example of the ID Token payload:
 
 Proof of possession authentication provides a greater level of security than bearer token authentication. To authenticate with a bearer token, the authentication secret must be sent over the internet to the authenticating party. This presents a risk that the authentication secret be stolen is transit or stolen at the server endpoint and replayed. With proof of possession, the authentication secret, i.e. the private key, never needs to leave the client. This reduces the chance of exposure and allows the client to use additional security mechanisms to protect the private key such as HSMs (Hardware Security Modules) or web browser based SSMs (Software Security Modules).
 
-Public key bound ID Tokens provide a higher level security than bearer ID Tokens by using proof of possession rather than bearer authentication. For this reason public key bound ID Tokens MUST NOT be accepted as a form of bearer token authentication. If bearer token authentication is desired, bearer ID Tokens should be used instead.
+Public key bound ID Tokens provide a higher level security than bearer ID Tokens by using proof of possession rather than bearer authentication. For this reason public key bound ID Tokens MUST NOT be accepted as a form of bearer token authentication. If bearer token authentication is desired, bearer ID Tokens should be used instead. 
 
+The `cnf` claim in the ID Token MUST NOT be used as proof a party presenting the ID Token controls the key identified by `cnf`. A  proof of possession is REQUIRED to establish that a party controls the key identified by `cnf`. The `cnf` claim SHOULD only be used to bind a signed object with the other claims in the ID Token.
+ 
 # IANA Considerations
 
 Media Type Registry
