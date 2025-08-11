@@ -1235,7 +1235,7 @@ li > p:last-of-type:only-child {
 <dd class="workgroup">OpenID Connect</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-08-10" class="published">10 August 2025</time>
+<time datetime="2025-08-11" class="published">11 August 2025</time>
     </dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
@@ -1538,8 +1538,6 @@ grant_type=authorization_code&amp;code=SplxlOBeZQQYbYS6WxSbIA
       </h2>
 <p id="section-3-1">Proof of possession authentication provides a greater level of security than bearer token authentication. To authenticate with a bearer token, the authentication secret must be sent over the internet to the authenticating party. This presents a risk that the authentication secret be stolen is transit or stolen at the server endpoint and replayed. With proof of possession, the authentication secret, i.e. the private key, never needs to leave the client. This reduces the chance of exposure and allows the client to use additional security mechanisms to protect the private key such as HSMs (Hardware Security Modules) or web browser based SSMs (Software Security Modules).<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">Public key bound ID Tokens provide a higher level security than bearer ID Tokens by using proof of possession rather than bearer authentication. For this reason public key bound ID Tokens MUST NOT be accepted as a form of bearer token authentication. If bearer token authentication is desired, bearer ID Tokens should be used instead.<a href="#section-3-2" class="pilcrow">¶</a></p>
-<p id="section-3-3">Within a closed ecosystem, the private key associated with a public key bound ID Token MAY be used to sign and authenticate the content of message. This use REQUIRES that the user's agent enforce secure domain separation via some other protocol between signatures on messages and proof of possession signatures on challenges. Domain separation is need to enforce that the user's signature on a proof of possession challenge message is not replayed in other contexts.<a href="#section-3-3" class="pilcrow">¶</a></p>
-<p id="section-3-4">The content of such signed messages MUST NOT be treated as authenticated outside of that ecosystem.<a href="#section-3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
