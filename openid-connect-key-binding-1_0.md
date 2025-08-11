@@ -214,10 +214,6 @@ Proof of possession authentication provides a greater level of security than bea
 
 Public key bound ID Tokens provide a higher level security than bearer ID Tokens by using proof of possession rather than bearer authentication. For this reason public key bound ID Tokens MUST NOT be accepted as a form of bearer token authentication. If bearer token authentication is desired, bearer ID Tokens should be used instead.
 
-Within a closed ecosystem, the private key associated with a public key bound ID Token MAY be used to sign and authenticate the content of message. This use REQUIRES that the user's agent enforce secure domain separation via some other protocol between signatures on messages and proof of possession signatures on challenges. Domain separation is need to enforce that the user's signature on a proof of possession challenge message is not replayed in other contexts.
-
-The content of such signed messages MUST NOT be treated as authenticated outside of that ecosystem.
-
 # IANA Considerations
 
 Media Type Registry
