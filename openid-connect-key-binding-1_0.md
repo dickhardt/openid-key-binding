@@ -148,9 +148,7 @@ TBD
 
 ## Token Request
 
-To obtain the ID Token, the RP generates a `DPoP` header, setting the `nonce` claim of the `DPoP` header to the value of the authorization code. This binds the authorization code to the token request. 
-
-Note the `nonce` claim in `DPoP` is specified in [RFC9449] section 4.2 and is not the same as the ID Token `nonce` claim defined in [OpenID Connect] 3.1.
+To obtain the ID Token, the RP generates a `DPoP` header, adding the `code` claim of the `DPoP` header JWT to the value of the authorization code. This binds the authorization code to the token request. 
 
 Non-normative example:
 
@@ -175,7 +173,7 @@ If a DPoP header is included in the token request to the OP, and the `dpop_jkt` 
 
 The OP MUST perform all verification steps as described in [RFC9449] section 5.
 
-In addition, the OP MUST also confirm the authorization code in the DPoP token `nonce` claim matches the `code` value in the token request.
+In addition, the OP MUST also confirm the DPoP JWT `code` claim matches the `code` value in the token request.
 
 ## Token Response
 
