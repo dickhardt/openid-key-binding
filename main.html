@@ -26,7 +26,7 @@
     platformdirs 4.3.8
     pycountry 24.6.1
     PyYAML 6.0.2
-    requests 2.32.4
+    requests 2.32.5
     setuptools 65.5.0
     wcwidth 0.2.13
 -->
@@ -1235,7 +1235,7 @@ li > p:last-of-type:only-child {
 <dd class="workgroup">OpenID Connect</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-08-11" class="published">11 August 2025</time>
+<time datetime="2025-08-20" class="published">20 August 2025</time>
     </dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
@@ -1465,10 +1465,9 @@ Host: server.example.com
         <h3 id="name-token-request">
 <a href="#section-1.7" class="section-number selfRef">1.7. </a><a href="#name-token-request" class="section-name selfRef">Token Request</a>
         </h3>
-<p id="section-1.7-1">To obtain the ID Token, the RP generates a <code>DPoP</code> header, setting the <code>nonce</code> claim of the <code>DPoP</code> header to the value of the authorization code. This binds the authorization code to the token request.<a href="#section-1.7-1" class="pilcrow">¶</a></p>
-<p id="section-1.7-2">Note the <code>nonce</code> claim in <code>DPoP</code> is specified in [RFC9449] section 4.2 and is not the same as the ID Token <code>nonce</code> claim defined in [OpenID Connect] 3.1.<a href="#section-1.7-2" class="pilcrow">¶</a></p>
-<p id="section-1.7-3">Non-normative example:<a href="#section-1.7-3" class="pilcrow">¶</a></p>
-<div class="lang-text sourcecode" id="section-1.7-4">
+<p id="section-1.7-1">To obtain the ID Token, the RP generates a <code>DPoP</code> header, adding the <code>code</code> claim of the <code>DPoP</code> header JWT to the value of the authorization code. This binds the authorization code to the token request.<a href="#section-1.7-1" class="pilcrow">¶</a></p>
+<p id="section-1.7-2">Non-normative example:<a href="#section-1.7-2" class="pilcrow">¶</a></p>
+<div class="lang-text sourcecode" id="section-1.7-3">
 <pre>POST /token HTTP/1.1
 Host: server.example.com
 Content-Type: application/x-www-form-urlencoded
@@ -1481,14 +1480,14 @@ DPoP: eyJhbGciOiJFUzI1NiJ9.eyJ0eXAiOiJkcG9wK2p3dCIsImFsZyI6IkV\
  vTSKwH5oNJzAeMhIrgD_HQHGhgt_N1xQHdHiMkn7AMj3UDkwoNOW4Qqak
 grant_type=authorization_code&amp;code=SplxlOBeZQQYbYS6WxSbIA
 &amp;redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb
-</pre><a href="#section-1.7-4" class="pilcrow">¶</a>
+</pre><a href="#section-1.7-3" class="pilcrow">¶</a>
 </div>
-<p id="section-1.7-5">If a DPoP header is included in the token request to the OP, and the <code>dpop_jkt</code> parameter was not included in the authentication request, the OP MUST NOT include the <code>cnf</code> claim in the ID Token.<a href="#section-1.7-5" class="pilcrow">¶</a></p>
-<blockquote id="section-1.7-6">
-          <p id="section-1.7-6.1">This prevents an existing deployment using DPoP for access token from having them included in ID Tokens accidentally.<a href="#section-1.7-6.1" class="pilcrow">¶</a></p>
+<p id="section-1.7-4">If a DPoP header is included in the token request to the OP, and the <code>dpop_jkt</code> parameter was not included in the authentication request, the OP MUST NOT include the <code>cnf</code> claim in the ID Token.<a href="#section-1.7-4" class="pilcrow">¶</a></p>
+<blockquote id="section-1.7-5">
+          <p id="section-1.7-5.1">This prevents an existing deployment using DPoP for access token from having them included in ID Tokens accidentally.<a href="#section-1.7-5.1" class="pilcrow">¶</a></p>
 </blockquote>
-<p id="section-1.7-7">The OP MUST perform all verification steps as described in [RFC9449] section 5.<a href="#section-1.7-7" class="pilcrow">¶</a></p>
-<p id="section-1.7-8">In addition, the OP MUST also confirm the authorization code in the DPoP token <code>nonce</code> claim matches the <code>code</code> value in the token request.<a href="#section-1.7-8" class="pilcrow">¶</a></p>
+<p id="section-1.7-6">The OP MUST perform all verification steps as described in [RFC9449] section 5.<a href="#section-1.7-6" class="pilcrow">¶</a></p>
+<p id="section-1.7-7">In addition, the OP MUST also confirm the DPoP JWT <code>code</code> claim matches the <code>code</code> value in the token request.<a href="#section-1.7-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="token-response">
