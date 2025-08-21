@@ -148,7 +148,11 @@ TBD
 
 ## Token Request
 
-To obtain the ID Token, the RP generates a `DPoP` header, adding the `code` claim of the `DPoP` header JWT to the value of the authorization code. This binds the authorization code to the token request. 
+To obtain the ID Token, the RP:
+
+1. generates a `c_hash` by computing a SHA256 hash of the authorization `code`, and then c
+2. converts the hash to BASE64URL 
+3. generates a `DPoP` header, including the `c_hash` claim in the `DPoP` header JWT. This binds the authorization code to the token request. 
 
 Non-normative example:
 
@@ -171,9 +175,10 @@ If a DPoP header is included in the token request to the OP, and the `dpop_jkt` 
 
 > This prevents an existing deployment using DPoP for access token from having them included in ID Tokens accidentally.
 
-The OP MUST perform all verification steps as described in [RFC9449] section 5.
-
-In addition, the OP MUST also confirm the DPoP JWT `code` claim matches the `code` value in the token request.
+The OP MUST:
+- perform all verification steps as described in [RFC9449] section 5.
+- calculate the `c_hash` from the authorization `code` just as the RP id.
+- confirm the `c_hash` in the DPoP JWT matches its calculated `c_hash`
 
 ## Token Response
 
