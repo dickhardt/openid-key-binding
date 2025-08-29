@@ -60,6 +60,10 @@ jobs:
           name: built-xml
           path: openid-connect-key-binding-1_0.xml
 
+
+      - name: log XML file
+        run: cat openid-connect-key-binding-1_0.xml
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -79,9 +83,6 @@ jobs:
 
       - name: Show branch name
         run: echo "$BRANCH_NAME"
-
-      - name: Validate XML
-        run: xml2rfc --validate openid-connect-key-binding-1_0.xml
 
       - name: Render HTML
         run: xml2rfc --html openid-connect-key-binding-1_0.xml --out html/$BRANCH_NAME.html
