@@ -65,9 +65,9 @@ the use of *this fixed-width font*.
 
 This specification uses the following terms:
 
-- **OP**: The OpenID Provider as defined in [OpenID Connect].
+- **OP**: The OpenID Provider as defined in {{OpenID.Core}}.
 
-- **RP**: The Relying Party as defined in [OpenID Connect]. 
+- **RP**: The Relying Party as defined in {{OpenID.Core}}. 
 
 The parameters **dpop_jkt** and **DPoP** as defined in [RFC9449]
 
@@ -99,7 +99,7 @@ This specification profiles how to bind a public key to an ID Token by:
 
 ## OpenID Connect Metadata
 
-The OP's OpenID Connect Metadata Document ([OpenID Connect Discovery])SHOULD include":
+The OP's OpenID Connect Metadata Document ({{OpenID.Discovery}})SHOULD include":
 
 - the `dpop` scope in the `supported_scopes`
 - the `dpop_signing_alg_values_supported` property containing a list of supported algorithms as defined in [IANA.JOSE.ALGS]
@@ -107,7 +107,7 @@ The OP's OpenID Connect Metadata Document ([OpenID Connect Discovery])SHOULD inc
 
 ## Authentication Request - Authorization Code Flow
 
-If the RP is running on a device that supports a web browser, it makes an authorization request per [OpenID Connect] 3.1. In addition to the `scope` parameter containing `openid`, and the `response_type` having the value `code`, the `scope` parameter MUST also include `dpop`, and the request MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint [RFC7638] of the proof-of-possession public key using the SHA-256 hash function, as defined in [RFC9449] section 10.
+If the RP is running on a device that supports a web browser, it makes an authorization request per {{OpenID.Core}} 3.1. In addition to the `scope` parameter containing `openid`, and the `response_type` having the value `code`, the `scope` parameter MUST also include `dpop`, and the request MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint [RFC7638] of the proof-of-possession public key using the SHA-256 hash function, as defined in [RFC9449] section 10.
 
 Following is a non-normative example of an authentication request using the authorization code flow:
 
@@ -123,7 +123,7 @@ response_type=code
 Host: server.example.com
 ```
 
-If the OP does not support the `dpop` scope, it SHOULD ignore it per [OpenID Connect] 3.1.2.1.
+If the OP does not support the `dpop` scope, it SHOULD ignore it per {{OpenID.Core}} 3.1.2.1.
 
 
 ## Authentication Request - Device Authorization Flow
@@ -138,7 +138,7 @@ TBD
 ```
 
 
-If the OP does not support the `dpop` scope, it SHOULD ignore it per [OpenID Connect] 3.1.2.1.
+If the OP does not support the `dpop` scope, it SHOULD ignore it per {{OpenID.Core}} 3.1.2.1.
 
 
 ## Authentication Response
@@ -241,7 +241,8 @@ Subtype name: dpop+id_token
 - **[RFC7800]**
 - **[RFC9449]** 
 
-- **[OpenID-Connect]** – “OpenID Connect Core 1.0 incorporating errata set 2,” available at <https://openid.net/specs/openid-connect-core-1_0.html>.
+- **OpenID.Core** – “OpenID Connect Core 1.0 incorporating errata set 2,” available at <https://openid.net/specs/openid-connect-core-1_0.html>.
+- **OpenID.Discovery** – “OpenID Connect Discovery 1.0,” available at <https://openid.net/specs/openid-connect-discovery-1_0.html>.
 
 ## Informative References
 
