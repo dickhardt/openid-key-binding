@@ -77,7 +77,7 @@ This specification profiles how to bind a public key to an ID Token by:
 
 1. adding the `dpop` scope and `dpop_jkt` parameter to the OpenID Connect Authentication Request
 2. receiving the authorization `code` as usual in the Authentication Response
-3. adding the `DPoP` header that includes the `code` as a claim in the Token Request to the OP `token_endpoint`
+3. adding the `DPoP` header that includes the hash of the `code`, `c_hash`, as a claim in the Token Request to the OP `token_endpoint`
 4. adding the `cnf` claim containing the public key to the returned ID Token
 
 ```
@@ -89,13 +89,21 @@ This specification profiles how to bind a public key to an ID Token by:
 |      |   (2) authorization code     |      | 
 |      |                              |      | 
 |      |-- Token Request ------------>|      |
-|      |   (3) DPoP header w/ code    |      |
+|      |   (3) DPoP header w/ c_hash  |      |
 |      |                              |      |
 |      |<-- Token Response -----------|      |
 |      |   (4) cnf claim containing   |      |
 |      |   the public key in ID Token |      | 
 +------+                              +------+
 ```
+
+## OpenID Connect Metadata
+
+The OP's OpenID Connect Metadata Document ([OpenID Connect Discovery])SHOULD include":
+
+- the `dpop` scope in the `supported_scopes`
+- the `dpop_signing_alg_values_supported` property containing a list of supported algorithms as defined in [IANA.JOSE.ALGS]
+
 
 ## Authentication Request - Authorization Code Flow
 
@@ -115,7 +123,7 @@ response_type=code
 Host: server.example.com
 ```
 
-If the OP does not support the `dpop` scope, it MUST return an error response with the error code `invalid_scope` per [RFC6749] 5.2.
+If the OP does not support the `dpop` scope, it SHOULD ignore it per [OpenID Connect] 3.1.2.1.
 
 
 ## Authentication Request - Device Authorization Flow
@@ -130,7 +138,7 @@ TBD
 ```
 
 
-If the OP does not support the `dpop` scope, it MUST return an error response with the error code `invalid_scope` per [RFC6749] 5.2.
+If the OP does not support the `dpop` scope, it SHOULD ignore it per [OpenID Connect] 3.1.2.1.
 
 
 ## Authentication Response
@@ -150,7 +158,7 @@ TBD
 
 To obtain the ID Token, the RP:
 
-1. generates a `c_hash` by computing a SHA256 hash of the authorization `code`, and then c
+1. generates a `c_hash` by computing a SHA256 hash of the authorization `code`
 2. converts the hash to BASE64URL 
 3. generates a `DPoP` header, including the `c_hash` claim in the `DPoP` header JWT. This binds the authorization code to the token request. 
 
@@ -233,7 +241,7 @@ Subtype name: dpop+id_token
 - **[RFC7800]**
 - **[RFC9449]** 
 
-- **OpenID Connect Core 1.0** – “OpenID Connect Core 1.0 incorporating errata set 1,” available at <https://openid.net/specs/openid-connect-core-1_0.html>.
+- **[OpenID-Connect]** – “OpenID Connect Core 1.0 incorporating errata set 2,” available at <https://openid.net/specs/openid-connect-core-1_0.html>.
 
 ## Informative References
 
@@ -242,9 +250,7 @@ Subtype name: dpop+id_token
 
 {backmatter}
 
-# Acknowledgements
-
-*To be completed.*
+The authors would like to thank early feedback provided by Filip Skokan, Jacob Ideskog, and Kosuke Koiwai.
 
 # Notices
 
