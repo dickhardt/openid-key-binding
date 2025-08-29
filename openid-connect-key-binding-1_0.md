@@ -190,7 +190,7 @@ The OP MUST:
 
 ## Token Response
 
-If the token request was successful, the OP MUST return an ID Token containing the `cnf` claim as defined in [7800] set to the jwk of the user's public key and with  `typ` set to `dpop+id_token` in the ID Token's protected header.
+If the token request was successful, the OP MUST return an ID Token containing the `cnf` claim as defined in {{7800}} set to the jwk of the user's public key and with  `typ` set to `dpop+id_token` in the ID Token's protected header.
 
 Non-normative example of the ID Token payload:
 
