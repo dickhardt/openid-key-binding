@@ -69,7 +69,7 @@ This specification uses the following terms:
 
 - **RP**: The Relying Party as defined in {{OpenID.Core}}. 
 
-The parameters **dpop_jkt** and **DPoP** as defined in [RFC9449]
+The parameters **dpop_jkt** and **DPoP** as defined in {{RFC9449}}
 
 ## Protocol Profile Overview
 
@@ -102,12 +102,12 @@ This specification profiles how to bind a public key to an ID Token by:
 The OP's OpenID Connect Metadata Document ({{OpenID.Discovery}})SHOULD include":
 
 - the `dpop` scope in the `supported_scopes`
-- the `dpop_signing_alg_values_supported` property containing a list of supported algorithms as defined in [IANA.JOSE.ALGS]
+- the `dpop_signing_alg_values_supported` property containing a list of supported algorithms as defined in IANA.JOSE.ALGS 
 
 
 ## Authentication Request - Authorization Code Flow
 
-If the RP is running on a device that supports a web browser, it makes an authorization request per {{OpenID.Core}} 3.1. In addition to the `scope` parameter containing `openid`, and the `response_type` having the value `code`, the `scope` parameter MUST also include `dpop`, and the request MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint [RFC7638] of the proof-of-possession public key using the SHA-256 hash function, as defined in [RFC9449] section 10.
+If the RP is running on a device that supports a web browser, it makes an authorization request per {{OpenID.Core}} 3.1. In addition to the `scope` parameter containing `openid`, and the `response_type` having the value `code`, the `scope` parameter MUST also include `dpop`, and the request MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint {{RFC7638}} of the proof-of-possession public key using the SHA-256 hash function, as defined in {{RFC9449}} section 10.
 
 Following is a non-normative example of an authentication request using the authorization code flow:
 
@@ -128,7 +128,7 @@ If the OP does not support the `dpop` scope, it SHOULD ignore it per {{OpenID.Co
 
 ## Authentication Request - Device Authorization Flow
 
-If the RP is running on a device that does not support a web browser, it makes an authorization request per [RFC8628] 3.1. In the request, the `scope` parameter MUST contain both `openid` and `dpop`. The request MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint [RFC7638] of the proof-of-possession public key using the SHA-256 hash function, as defined in [RFC9449] section 10.
+If the RP is running on a device that does not support a web browser, it makes an authorization request per {{RFC8628}} 3.1. In the request, the `scope` parameter MUST contain both `openid` and `dpop`. The request MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint {{RFC7638}} of the proof-of-possession public key using the SHA-256 hash function, as defined in {{RFC9449}} section 10.
 
 Following is a non-normative example of an authentication request using the device authorization flow:
 
@@ -184,7 +184,7 @@ If a DPoP header is included in the token request to the OP, and the `dpop_jkt` 
 > This prevents an existing deployment using DPoP for access token from having them included in ID Tokens accidentally.
 
 The OP MUST:
-- perform all verification steps as described in [RFC9449] section 5.
+- perform all verification steps as described in {{RFC9449}} section 5.
 - calculate the `c_hash` from the authorization `code` just as the RP id.
 - confirm the `c_hash` in the DPoP JWT matches its calculated `c_hash`
 
