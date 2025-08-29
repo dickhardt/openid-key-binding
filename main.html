@@ -10,20 +10,20 @@
 <meta content="
        OpenID Key Binding specifies how to bind a public key to an OpenID Connect ID Token using mechanisms defined in RFC 9449, OAuth 2.0 Demonstrating Proof of Possession (DPoP). 
     " name="description">
-<meta content="xml2rfc 3.30.0" name="generator">
+<meta content="xml2rfc 3.30.1" name="generator">
 <meta content="security" name="keyword">
 <meta content="openid" name="keyword">
 <meta content="lifecycle" name="keyword">
 <meta name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.30.0
+  xml2rfc 3.30.1
     Python 3.10.18
     ConfigArgParse 1.7.1
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.6
-    lxml 6.0.0
-    platformdirs 4.3.8
+    lxml 6.0.1
+    platformdirs 4.4.0
     pycountry 24.6.1
     PyYAML 6.0.2
     requests 2.32.5
@@ -1215,7 +1215,6 @@ li > p:last-of-type:only-child {
 <script type="application/javascript">async function addMetadata(){try{const e=document.styleSheets[0].cssRules;for(let t=0;t<e.length;t++)if(/#identifiers/.exec(e[t].selectorText)){const a=e[t].cssText.replace("#identifiers","#external-updates");document.styleSheets[0].insertRule(a,document.styleSheets[0].cssRules.length)}}catch(e){console.log(e)}const e=document.getElementById("external-metadata");if(e)try{var t,a="",o=function(e){const t=document.getElementsByTagName("meta");for(let a=0;a<t.length;a++)if(t[a].getAttribute("name")===e)return t[a].getAttribute("content");return""}("rfc.number");if(o){t="https://www.rfc-editor.org/rfc/rfc"+o+".json";try{const e=await fetch(t);a=await e.json()}catch(e){t=document.URL.indexOf("html")>=0?document.URL.replace(/html$/,"json"):document.URL+".json";const o=await fetch(t);a=await o.json()}}if(!a)return;e.style.display="block";const s="",d="https://datatracker.ietf.org/doc",n="https://datatracker.ietf.org/ipr/search",c="https://www.rfc-editor.org/info",l=a.doc_id.toLowerCase(),i=a.doc_id.slice(0,3).toLowerCase(),f=a.doc_id.slice(3).replace(/^0+/,""),u={status:"Status",obsoletes:"Obsoletes",obsoleted_by:"Obsoleted By",updates:"Updates",updated_by:"Updated By",see_also:"See Also",errata_url:"Errata"};let h="<dl style='overflow:hidden' id='external-updates'>";["status","obsoletes","obsoleted_by","updates","updated_by","see_also","errata_url"].forEach(e=>{if("status"==e){a[e]=a[e].toLowerCase();var t=a[e].split(" "),o=t.length,w="",p=1;for(let e=0;e<o;e++)p<o?w=w+r(t[e])+" ":w+=r(t[e]),p++;a[e]=w}else if("obsoletes"==e||"obsoleted_by"==e||"updates"==e||"updated_by"==e){var g,m="",b=1;g=a[e].length;for(let t=0;t<g;t++)a[e][t]&&(a[e][t]=String(a[e][t]).toLowerCase(),m=b<g?m+"<a href='"+s+"/rfc/".concat(a[e][t])+"'>"+a[e][t].slice(3)+"</a>, ":m+"<a href='"+s+"/rfc/".concat(a[e][t])+"'>"+a[e][t].slice(3)+"</a>",b++);a[e]=m}else if("see_also"==e){var y,L="",C=1;y=a[e].length;for(let t=0;t<y;t++)if(a[e][t]){a[e][t]=String(a[e][t]);var _=a[e][t].slice(0,3),v=a[e][t].slice(3).replace(/^0+/,"");L=C<y?"RFC"!=_?L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+_+" "+v+"</a>, ":L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+v+"</a>, ":"RFC"!=_?L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+_+" "+v+"</a>":L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+v+"</a>",C++}a[e]=L}else if("errata_url"==e){var R="";R=a[e]?R+"<a href='"+a[e]+"'>Errata exist</a> | <a href='"+d+"/"+l+"'>Datatracker</a>| <a href='"+n+"/?"+i+"="+f+"&submit="+i+"'>IPR</a> | <a href='"+c+"/"+l+"'>Info page</a>":"<a href='"+d+"/"+l+"'>Datatracker</a> | <a href='"+n+"/?"+i+"="+f+"&submit="+i+"'>IPR</a> | <a href='"+c+"/"+l+"'>Info page</a>",a[e]=R}""!=a[e]?"Errata"==u[e]?h+=`<dt>More info:</dt><dd>${a[e]}</dd>`:h+=`<dt>${u[e]}:</dt><dd>${a[e]}</dd>`:"Errata"==u[e]&&(h+=`<dt>More info:</dt><dd>${a[e]}</dd>`)}),h+="</dl>",e.innerHTML=h}catch(e){console.log(e)}else console.log("Could not locate metadata <div> element");function r(e){return e.charAt(0).toUpperCase()+e.slice(1)}}window.removeEventListener("load",addMetadata),window.addEventListener("load",addMetadata);</script>
 </head>
 <body class="xml2rfc">
-<script src="metadata.min.js"></script>
 <table class="ears">
 <thead><tr>
 <td class="left"></td>
@@ -1235,7 +1234,7 @@ li > p:last-of-type:only-child {
 <dd class="workgroup">OpenID Connect</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-08-21" class="published">21 August 2025</time>
+<time datetime="2025-08-29" class="published">29 August 2025</time>
     </dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
@@ -1274,19 +1273,22 @@ li > p:last-of-type:only-child {
                 <p id="section-toc.1-1.1.2.3.1" class="keepWithNext"><a href="#section-1.3" class="auto internal xref">1.3</a>.  <a href="#name-protocol-profile-overview" class="internal xref">Protocol Profile Overview</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.4">
-                <p id="section-toc.1-1.1.2.4.1"><a href="#section-1.4" class="auto internal xref">1.4</a>.  <a href="#name-authentication-request-auth" class="internal xref">Authentication Request - Authorization Code Flow</a></p>
+                <p id="section-toc.1-1.1.2.4.1"><a href="#section-1.4" class="auto internal xref">1.4</a>.  <a href="#name-openid-connect-metadata" class="internal xref">OpenID Connect Metadata</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.5">
-                <p id="section-toc.1-1.1.2.5.1"><a href="#section-1.5" class="auto internal xref">1.5</a>.  <a href="#name-authentication-request-devi" class="internal xref">Authentication Request - Device Authorization Flow</a></p>
+                <p id="section-toc.1-1.1.2.5.1"><a href="#section-1.5" class="auto internal xref">1.5</a>.  <a href="#name-authentication-request-auth" class="internal xref">Authentication Request - Authorization Code Flow</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.6">
-                <p id="section-toc.1-1.1.2.6.1"><a href="#section-1.6" class="auto internal xref">1.6</a>.  <a href="#name-authentication-response" class="internal xref">Authentication Response</a></p>
+                <p id="section-toc.1-1.1.2.6.1"><a href="#section-1.6" class="auto internal xref">1.6</a>.  <a href="#name-authentication-request-devi" class="internal xref">Authentication Request - Device Authorization Flow</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.7">
-                <p id="section-toc.1-1.1.2.7.1"><a href="#section-1.7" class="auto internal xref">1.7</a>.  <a href="#name-token-request" class="internal xref">Token Request</a></p>
+                <p id="section-toc.1-1.1.2.7.1"><a href="#section-1.7" class="auto internal xref">1.7</a>.  <a href="#name-authentication-response" class="internal xref">Authentication Response</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.8">
-                <p id="section-toc.1-1.1.2.8.1"><a href="#section-1.8" class="auto internal xref">1.8</a>.  <a href="#name-token-response" class="internal xref">Token Response</a></p>
+                <p id="section-toc.1-1.1.2.8.1"><a href="#section-1.8" class="auto internal xref">1.8</a>.  <a href="#name-token-request" class="internal xref">Token Request</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.9">
+                <p id="section-toc.1-1.1.2.9.1"><a href="#section-1.9" class="auto internal xref">1.9</a>.  <a href="#name-token-response" class="internal xref">Token Response</a></p>
 </li>
             </ul>
 </li>
@@ -1361,13 +1363,13 @@ the use of <em>this fixed-width font</em>.<a href="#section-1.1-2" class="pilcro
 <p id="section-1.2-1">This specification uses the following terms:<a href="#section-1.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-1.2-2.1">
-            <p id="section-1.2-2.1.1"><strong>OP</strong>: The OpenID Provider as defined in [OpenID Connect].<a href="#section-1.2-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-1.2-2.1.1"><strong>OP</strong>: The OpenID Provider as defined in {{OpenID.Core}}.<a href="#section-1.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-1.2-2.2">
-            <p id="section-1.2-2.2.1"><strong>RP</strong>: The Relying Party as defined in [OpenID Connect].<a href="#section-1.2-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-1.2-2.2.1"><strong>RP</strong>: The Relying Party as defined in {{OpenID.Core}}.<a href="#section-1.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-1.2-3">The parameters <strong>dpop_jkt</strong> and <strong>DPoP</strong> as defined in [RFC9449]<a href="#section-1.2-3" class="pilcrow">¶</a></p>
+<p id="section-1.2-3">The parameters <strong>dpop_jkt</strong> and <strong>DPoP</strong> as defined in {{RFC9449}}<a href="#section-1.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="protocol-profile-overview">
@@ -1384,7 +1386,7 @@ the use of <em>this fixed-width font</em>.<a href="#section-1.1-2" class="pilcro
             <p id="section-1.3-2.2.1">receiving the authorization <code>code</code> as usual in the Authentication Response<a href="#section-1.3-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-1.3-2.3">
-            <p id="section-1.3-2.3.1">adding the <code>DPoP</code> header that includes the <code>code</code> as a claim in the Token Request to the OP <code>token_endpoint</code><a href="#section-1.3-2.3.1" class="pilcrow">¶</a></p>
+            <p id="section-1.3-2.3.1">adding the <code>DPoP</code> header that includes the hash of the <code>code</code>, <code>c_hash</code>, as a claim in the Token Request to the OP <code>token_endpoint</code><a href="#section-1.3-2.3.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-1.3-2.4">
             <p id="section-1.3-2.4.1">adding the <code>cnf</code> claim containing the public key to the returned ID Token<a href="#section-1.3-2.4.1" class="pilcrow">¶</a></p>
@@ -1399,7 +1401,7 @@ the use of <em>this fixed-width font</em>.<a href="#section-1.1-2" class="pilcro
 |      |   (2) authorization code     |      |
 |      |                              |      |
 |      |-- Token Request ------------&gt;|      |
-|      |   (3) DPoP header w/ code    |      |
+|      |   (3) DPoP header w/ c_hash  |      |
 |      |                              |      |
 |      |&lt;-- Token Response -----------|      |
 |      |   (4) cnf claim containing   |      |
@@ -1409,14 +1411,30 @@ the use of <em>this fixed-width font</em>.<a href="#section-1.1-2" class="pilcro
 </div>
 </section>
 </div>
-<div id="authentication-request-authorization-code-flow">
+<div id="openid-connect-metadata">
 <section id="section-1.4">
-        <h3 id="name-authentication-request-auth">
-<a href="#section-1.4" class="section-number selfRef">1.4. </a><a href="#name-authentication-request-auth" class="section-name selfRef">Authentication Request - Authorization Code Flow</a>
+        <h3 id="name-openid-connect-metadata">
+<a href="#section-1.4" class="section-number selfRef">1.4. </a><a href="#name-openid-connect-metadata" class="section-name selfRef">OpenID Connect Metadata</a>
         </h3>
-<p id="section-1.4-1">If the RP is running on a device that supports a web browser, it makes an authorization request per [OpenID Connect] 3.1. In addition to the <code>scope</code> parameter containing <code>openid</code>, and the <code>response_type</code> having the value <code>code</code>, the <code>scope</code> parameter MUST also include <code>dpop</code>, and the request MUST include the <code>dpop_jkt</code> parameter having the value of the JWK Thumbprint [RFC7638] of the proof-of-possession public key using the SHA-256 hash function, as defined in [RFC9449] section 10.<a href="#section-1.4-1" class="pilcrow">¶</a></p>
-<p id="section-1.4-2">Following is a non-normative example of an authentication request using the authorization code flow:<a href="#section-1.4-2" class="pilcrow">¶</a></p>
-<div class="lang-text sourcecode" id="section-1.4-3">
+<p id="section-1.4-1">The OP's OpenID Connect Metadata Document ({{OpenID.Discovery}})SHOULD include":<a href="#section-1.4-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-1.4-2.1">
+            <p id="section-1.4-2.1.1">the <code>dpop</code> scope in the <code>supported_scopes</code><a href="#section-1.4-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-1.4-2.2">
+            <p id="section-1.4-2.2.1">the <code>dpop_signing_alg_values_supported</code> property containing a list of supported algorithms as defined in IANA.JOSE.ALGS<a href="#section-1.4-2.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="authentication-request-authorization-code-flow">
+<section id="section-1.5">
+        <h3 id="name-authentication-request-auth">
+<a href="#section-1.5" class="section-number selfRef">1.5. </a><a href="#name-authentication-request-auth" class="section-name selfRef">Authentication Request - Authorization Code Flow</a>
+        </h3>
+<p id="section-1.5-1">If the RP is running on a device that supports a web browser, it makes an authorization request per {{OpenID.Core}} 3.1. In addition to the <code>scope</code> parameter containing <code>openid</code>, and the <code>response_type</code> having the value <code>code</code>, the <code>scope</code> parameter MUST also include <code>dpop</code>, and the request MUST include the <code>dpop_jkt</code> parameter having the value of the JWK Thumbprint {{RFC7638}} of the proof-of-possession public key using the SHA-256 hash function, as defined in {{RFC9449}} section 10.<a href="#section-1.5-1" class="pilcrow">¶</a></p>
+<p id="section-1.5-2">Following is a non-normative example of an authentication request using the authorization code flow:<a href="#section-1.5-2" class="pilcrow">¶</a></p>
+<div class="lang-text sourcecode" id="section-1.5-3">
 <pre>GET /authorize?
 response_type=code
 &amp;dpop_jkt=1f2e6338febe335e2cbaa7c7154c3cbdcfd8650f95c5fe7206bb6360e37f4b5a
@@ -1426,59 +1444,59 @@ response_type=code
 &amp;nonce=2a50f9ea812f9bb4c8f7
 &amp;redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb HTTP/1.1
 Host: server.example.com
-</pre><a href="#section-1.4-3" class="pilcrow">¶</a>
+</pre><a href="#section-1.5-3" class="pilcrow">¶</a>
 </div>
-<p id="section-1.4-4">If the OP does not support the <code>dpop</code> scope, it MUST return an error response with the error code <code>invalid_scope</code> per [RFC6749] 5.2.<a href="#section-1.4-4" class="pilcrow">¶</a></p>
+<p id="section-1.5-4">If the OP does not support the <code>dpop</code> scope, it SHOULD ignore it per {{OpenID.Core}} 3.1.2.1.<a href="#section-1.5-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authentication-request-device-authorization-flow">
-<section id="section-1.5">
+<section id="section-1.6">
         <h3 id="name-authentication-request-devi">
-<a href="#section-1.5" class="section-number selfRef">1.5. </a><a href="#name-authentication-request-devi" class="section-name selfRef">Authentication Request - Device Authorization Flow</a>
+<a href="#section-1.6" class="section-number selfRef">1.6. </a><a href="#name-authentication-request-devi" class="section-name selfRef">Authentication Request - Device Authorization Flow</a>
         </h3>
-<p id="section-1.5-1">If the RP is running on a device that does not support a web browser, it makes an authorization request per [RFC8628] 3.1. In the request, the <code>scope</code> parameter MUST contain both <code>openid</code> and <code>dpop</code>. The request MUST include the <code>dpop_jkt</code> parameter having the value of the JWK Thumbprint [RFC7638] of the proof-of-possession public key using the SHA-256 hash function, as defined in [RFC9449] section 10.<a href="#section-1.5-1" class="pilcrow">¶</a></p>
-<p id="section-1.5-2">Following is a non-normative example of an authentication request using the device authorization flow:<a href="#section-1.5-2" class="pilcrow">¶</a></p>
-<div class="lang-text sourcecode" id="section-1.5-3">
+<p id="section-1.6-1">If the RP is running on a device that does not support a web browser, it makes an authorization request per {{RFC8628}} 3.1. In the request, the <code>scope</code> parameter MUST contain both <code>openid</code> and <code>dpop</code>. The request MUST include the <code>dpop_jkt</code> parameter having the value of the JWK Thumbprint {{RFC7638}} of the proof-of-possession public key using the SHA-256 hash function, as defined in {{RFC9449}} section 10.<a href="#section-1.6-1" class="pilcrow">¶</a></p>
+<p id="section-1.6-2">Following is a non-normative example of an authentication request using the device authorization flow:<a href="#section-1.6-2" class="pilcrow">¶</a></p>
+<div class="lang-text sourcecode" id="section-1.6-3">
 <pre>TBD
 
-</pre><a href="#section-1.5-3" class="pilcrow">¶</a>
+</pre><a href="#section-1.6-3" class="pilcrow">¶</a>
 </div>
-<p id="section-1.5-4">If the OP does not support the <code>dpop</code> scope, it MUST return an error response with the error code <code>invalid_scope</code> per [RFC6749] 5.2.<a href="#section-1.5-4" class="pilcrow">¶</a></p>
+<p id="section-1.6-4">If the OP does not support the <code>dpop</code> scope, it SHOULD ignore it per {{OpenID.Core}} 3.1.2.1.<a href="#section-1.6-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authentication-response">
-<section id="section-1.6">
+<section id="section-1.7">
         <h3 id="name-authentication-response">
-<a href="#section-1.6" class="section-number selfRef">1.6. </a><a href="#name-authentication-response" class="section-name selfRef">Authentication Response</a>
+<a href="#section-1.7" class="section-number selfRef">1.7. </a><a href="#name-authentication-response" class="section-name selfRef">Authentication Response</a>
         </h3>
-<p id="section-1.6-1">If the key provided was not previously bound to the client, the OP SHOULD inform a user and obtain consent that a key binding will be done.<a href="#section-1.6-1" class="pilcrow">¶</a></p>
-<p id="section-1.6-2">On successful authentication of, and consent from the user, the OP returns an authorization <code>code</code>.<a href="#section-1.6-2" class="pilcrow">¶</a></p>
-<p id="section-1.6-3">Following is a non-normative example of a response:<a href="#section-1.6-3" class="pilcrow">¶</a></p>
-<div class="lang-text sourcecode" id="section-1.6-4">
+<p id="section-1.7-1">If the key provided was not previously bound to the client, the OP SHOULD inform a user and obtain consent that a key binding will be done.<a href="#section-1.7-1" class="pilcrow">¶</a></p>
+<p id="section-1.7-2">On successful authentication of, and consent from the user, the OP returns an authorization <code>code</code>.<a href="#section-1.7-2" class="pilcrow">¶</a></p>
+<p id="section-1.7-3">Following is a non-normative example of a response:<a href="#section-1.7-3" class="pilcrow">¶</a></p>
+<div class="lang-text sourcecode" id="section-1.7-4">
 <pre>TBD
-</pre><a href="#section-1.6-4" class="pilcrow">¶</a>
+</pre><a href="#section-1.7-4" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="token-request">
-<section id="section-1.7">
+<section id="section-1.8">
         <h3 id="name-token-request">
-<a href="#section-1.7" class="section-number selfRef">1.7. </a><a href="#name-token-request" class="section-name selfRef">Token Request</a>
+<a href="#section-1.8" class="section-number selfRef">1.8. </a><a href="#name-token-request" class="section-name selfRef">Token Request</a>
         </h3>
-<p id="section-1.7-1">To obtain the ID Token, the RP:<a href="#section-1.7-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-1.7-2">
-<li id="section-1.7-2.1">
-            <p id="section-1.7-2.1.1">generates a <code>c_hash</code> by computing a SHA256 hash of the authorization <code>code</code>, and then c<a href="#section-1.7-2.1.1" class="pilcrow">¶</a></p>
+<p id="section-1.8-1">To obtain the ID Token, the RP:<a href="#section-1.8-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-1.8-2">
+<li id="section-1.8-2.1">
+            <p id="section-1.8-2.1.1">generates a <code>c_hash</code> by computing a SHA256 hash of the authorization <code>code</code><a href="#section-1.8-2.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-1.7-2.2">
-            <p id="section-1.7-2.2.1">converts the hash to BASE64URL<a href="#section-1.7-2.2.1" class="pilcrow">¶</a></p>
+          <li id="section-1.8-2.2">
+            <p id="section-1.8-2.2.1">converts the hash to BASE64URL<a href="#section-1.8-2.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-1.7-2.3">
-            <p id="section-1.7-2.3.1">generates a <code>DPoP</code> header, including the <code>c_hash</code> claim in the <code>DPoP</code> header JWT. This binds the authorization code to the token request.<a href="#section-1.7-2.3.1" class="pilcrow">¶</a></p>
+          <li id="section-1.8-2.3">
+            <p id="section-1.8-2.3.1">generates a <code>DPoP</code> header, including the <code>c_hash</code> claim in the <code>DPoP</code> header JWT. This binds the authorization code to the token request.<a href="#section-1.8-2.3.1" class="pilcrow">¶</a></p>
 </li>
         </ol>
-<p id="section-1.7-3">Non-normative example:<a href="#section-1.7-3" class="pilcrow">¶</a></p>
-<div class="lang-text sourcecode" id="section-1.7-4">
+<p id="section-1.8-3">Non-normative example:<a href="#section-1.8-3" class="pilcrow">¶</a></p>
+<div class="lang-text sourcecode" id="section-1.8-4">
 <pre>POST /token HTTP/1.1
 Host: server.example.com
 Content-Type: application/x-www-form-urlencoded
@@ -1491,26 +1509,26 @@ DPoP: eyJhbGciOiJFUzI1NiJ9.eyJ0eXAiOiJkcG9wK2p3dCIsImFsZyI6IkV\
  vTSKwH5oNJzAeMhIrgD_HQHGhgt_N1xQHdHiMkn7AMj3UDkwoNOW4Qqak
 grant_type=authorization_code&amp;code=SplxlOBeZQQYbYS6WxSbIA
 &amp;redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb
-</pre><a href="#section-1.7-4" class="pilcrow">¶</a>
+</pre><a href="#section-1.8-4" class="pilcrow">¶</a>
 </div>
-<p id="section-1.7-5">If a DPoP header is included in the token request to the OP, and the <code>dpop_jkt</code> parameter was not included in the authentication request, the OP MUST NOT include the <code>cnf</code> claim in the ID Token.<a href="#section-1.7-5" class="pilcrow">¶</a></p>
-<blockquote id="section-1.7-6">
-          <p id="section-1.7-6.1">This prevents an existing deployment using DPoP for access token from having them included in ID Tokens accidentally.<a href="#section-1.7-6.1" class="pilcrow">¶</a></p>
+<p id="section-1.8-5">If a DPoP header is included in the token request to the OP, and the <code>dpop_jkt</code> parameter was not included in the authentication request, the OP MUST NOT include the <code>cnf</code> claim in the ID Token.<a href="#section-1.8-5" class="pilcrow">¶</a></p>
+<blockquote id="section-1.8-6">
+          <p id="section-1.8-6.1">This prevents an existing deployment using DPoP for access token from having them included in ID Tokens accidentally.<a href="#section-1.8-6.1" class="pilcrow">¶</a></p>
 </blockquote>
-<p id="section-1.7-7">The OP MUST:
-- perform all verification steps as described in [RFC9449] section 5.
+<p id="section-1.8-7">The OP MUST:
+- perform all verification steps as described in {{RFC9449}} section 5.
 - calculate the <code>c_hash</code> from the authorization <code>code</code> just as the RP id.
-- confirm the <code>c_hash</code> in the DPoP JWT matches its calculated <code>c_hash</code><a href="#section-1.7-7" class="pilcrow">¶</a></p>
+- confirm the <code>c_hash</code> in the DPoP JWT matches its calculated <code>c_hash</code><a href="#section-1.8-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="token-response">
-<section id="section-1.8">
+<section id="section-1.9">
         <h3 id="name-token-response">
-<a href="#section-1.8" class="section-number selfRef">1.8. </a><a href="#name-token-response" class="section-name selfRef">Token Response</a>
+<a href="#section-1.9" class="section-number selfRef">1.9. </a><a href="#name-token-response" class="section-name selfRef">Token Response</a>
         </h3>
-<p id="section-1.8-1">If the token request was successful, the OP MUST return an ID Token containing the <code>cnf</code> claim as defined in [7800] set to the jwk of the user's public key and with  <code>typ</code> set to <code>dpop+id_token</code> in the ID Token's protected header.<a href="#section-1.8-1" class="pilcrow">¶</a></p>
-<p id="section-1.8-2">Non-normative example of the ID Token payload:<a href="#section-1.8-2" class="pilcrow">¶</a></p>
-<div class="lang-json sourcecode" id="section-1.8-3">
+<p id="section-1.9-1">If the token request was successful, the OP MUST return an ID Token containing the <code>cnf</code> claim as defined in {{RFC7800}} set to the jwk of the user's public key and with  <code>typ</code> set to <code>dpop+id_token</code> in the ID Token's protected header.<a href="#section-1.9-1" class="pilcrow">¶</a></p>
+<p id="section-1.9-2">Non-normative example of the ID Token payload:<a href="#section-1.9-2" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="section-1.9-3">
 <pre>{
     "iss": "https://server.example.com",
     "sub": "24400320",
@@ -1529,7 +1547,7 @@ grant_type=authorization_code&amp;code=SplxlOBeZQQYbYS6WxSbIA
             }
         }
 }
-</pre><a href="#section-1.8-3" class="pilcrow">¶</a>
+</pre><a href="#section-1.9-3" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
@@ -1576,18 +1594,29 @@ Subtype name: dpop+id_token<a href="#section-4-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.1-1.1">
             <p id="section-5.1-1.1.1"><strong>[RFC2119]</strong> Bradner, S. “Key words for use in RFCs to Indicate Requirement Levels,” <em>RFC 2119</em>, March 1997.<a href="#section-5.1-1.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.1-1.1.2.1">
+                <p id="section-5.1-1.1.2.1.1"><strong>[RFC7549]</strong> W. Mills, P. Saint-Andre, T. Hardie, “The OAuth 2.0 Authorization Framework: Bearer Token Usage,” RFC 7549, May 2015. Available at <a href="https://datatracker.ietf.org/doc/html/rfc7549">https://datatracker.ietf.org/doc/html/rfc7549</a>.<a href="#section-5.1-1.1.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.1-1.1.2.2">
+                <p id="section-5.1-1.1.2.2.1"><strong>[RFC7638]</strong> M. Jones, “JSON Web Key (JWK) Thumbprint,” RFC 7638, September 2015. Available at <a href="https://datatracker.ietf.org/doc/html/rfc7638">https://datatracker.ietf.org/doc/html/rfc7638</a>.<a href="#section-5.1-1.1.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.1-1.1.2.3">
+                <p id="section-5.1-1.1.2.3.1"><strong>[RFC7800]</strong> M. Jones, J. Bradley, N. Sakimura, “Proof-of-Possession Key Semantics for JSON Web Tokens (JWTs),” RFC 7800, April 2016. Available at <a href="https://datatracker.ietf.org/doc/html/rfc7800">https://datatracker.ietf.org/doc/html/rfc7800</a>.<a href="#section-5.1-1.1.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.1-1.1.2.4">
+                <p id="section-5.1-1.1.2.4.1"><strong>[RFC8628]</strong> W. Denniss, J. Bradley, “OAuth 2.0 Device Authorization Grant,” RFC 8628, June 2019. Available at <a href="https://datatracker.ietf.org/doc/html/rfc8628">https://datatracker.ietf.org/doc/html/rfc8628</a>.<a href="#section-5.1-1.1.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-5.1-1.1.2.5">
+                <p id="section-5.1-1.1.2.5.1"><strong>[RFC9449]</strong> D. Fett, B. Campbell, J. Bradley, “OAuth 2.0 Demonstrating Proof-of-Possession at the Application Layer (DPoP),” RFC 9449, July 2023. Available at <a href="https://datatracker.ietf.org/doc/html/rfc9449">https://datatracker.ietf.org/doc/html/rfc9449</a>.<a href="#section-5.1-1.1.2.5.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
 </li>
           <li class="normal" id="section-5.1-1.2">
-            <p id="section-5.1-1.2.1"><strong>[RFC7549]</strong><a href="#section-5.1-1.2.1" class="pilcrow">¶</a></p>
+            <p id="section-5.1-1.2.1"><strong>OpenID.Core</strong> – “OpenID Connect Core 1.0 incorporating errata set 2,” available at <a href="https://openid.net/specs/openid-connect-core-1_0.html">https://openid.net/specs/openid-connect-core-1_0.html</a>.<a href="#section-5.1-1.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.1-1.3">
-            <p id="section-5.1-1.3.1"><strong>[RFC7800]</strong><a href="#section-5.1-1.3.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-5.1-1.4">
-            <p id="section-5.1-1.4.1"><strong>[RFC9449]</strong><a href="#section-5.1-1.4.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-5.1-1.5">
-            <p id="section-5.1-1.5.1"><strong>OpenID Connect Core 1.0</strong> – “OpenID Connect Core 1.0 incorporating errata set 1,” available at <a href="https://openid.net/specs/openid-connect-core-1_0.html">https://openid.net/specs/openid-connect-core-1_0.html</a>.<a href="#section-5.1-1.5.1" class="pilcrow">¶</a></p>
+            <p id="section-5.1-1.3.1"><strong>OpenID.Discovery</strong> – “OpenID Connect Discovery 1.0,” available at <a href="https://openid.net/specs/openid-connect-discovery-1_0.html">https://openid.net/specs/openid-connect-discovery-1_0.html</a>.<a href="#section-5.1-1.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1614,7 +1643,7 @@ Subtype name: dpop+id_token<a href="#section-4-1" class="pilcrow">¶</a></p>
       <h2 id="name-acknowledgements">
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-acknowledgements" class="section-name selfRef">Acknowledgements</a>
       </h2>
-<p id="appendix-A-1"><em>To be completed.</em><a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">The authors would like to thank early feedback provided by Filip Skokan, Jacob Ideskog, and Kosuke Koiwai.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="notices">
