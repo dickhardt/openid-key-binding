@@ -225,6 +225,8 @@ Proof of possession authentication provides a greater level of security than bea
 
 Public key bound ID Tokens provide a higher level security than bearer ID Tokens by using proof of possession rather than bearer authentication. For this reason public key bound ID Tokens MUST NOT be accepted as a form of bearer token authentication. If bearer token authentication is desired, bearer ID Tokens should be used instead.
 
+The `cnf` claim in the ID Token MUST NOT be used as proof a party presenting the ID Token controls the key identified by `cnf`. A  proof of possession is REQUIRED to establish that a party controls the key identified by `cnf`. The `cnf` claim SHOULD only be used to bind a signed object with the other claims in the ID Token.
+ 
 # IANA Considerations
 
 Media Type Registry
