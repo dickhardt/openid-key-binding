@@ -217,6 +217,8 @@ Non-normative example of the ID Token payload:
 
 # Privacy Considerations
 
+Public key bound ID Tokens will often contain personal (PII). The RP SHOULD obtain user consent before sharing a Public key bound ID Token that contains PII with a third party.
+
 *To be completed.*
 
 # Security Considerations
@@ -224,6 +226,8 @@ Non-normative example of the ID Token payload:
 Proof of possession authentication provides a greater level of security than bearer token authentication. To authenticate with a bearer token, the authentication secret must be sent over the internet to the authenticating party. This presents a risk that the authentication secret be stolen is transit or stolen at the server endpoint and replayed. With proof of possession, the authentication secret, i.e. the private key, never needs to leave the client. This reduces the chance of exposure and allows the client to use additional security mechanisms to protect the private key such as HSMs (Hardware Security Modules) or web browser based SSMs (Software Security Modules).
 
 Public key bound ID Tokens provide a higher level security than bearer ID Tokens by using proof of possession rather than bearer authentication. For this reason public key bound ID Tokens MUST NOT be accepted as a form of bearer token authentication. If bearer token authentication is desired, bearer ID Tokens should be used instead.
+
+> NOTE: add considerations regarding cross protocol JWT confusion and key reuse.
 
 # IANA Considerations
 
@@ -257,7 +261,7 @@ Subtype name: dpop+id_token
 # Acknowledgements
 
 
-The authors would like to thank early feedback provided by Filip Skokan, Jacob Ideskog, and Kosuke Koiwai.
+The authors would like to thank early feedback provided by Filip Skokan, George Fletcher, Jacob Ideskog, and Kosuke Koiwai.
 
 # Notices
 
