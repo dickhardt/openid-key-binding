@@ -10,13 +10,13 @@
 <meta content="
        OpenID Key Binding specifies how to bind a public key to an OpenID Connect ID Token using mechanisms defined in RFC 9449, OAuth 2.0 Demonstrating Proof of Possession (DPoP). 
     " name="description">
-<meta content="xml2rfc 3.30.1" name="generator">
+<meta content="xml2rfc 3.30.2" name="generator">
 <meta content="security" name="keyword">
 <meta content="openid" name="keyword">
 <meta content="lifecycle" name="keyword">
 <meta name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.30.1
+  xml2rfc 3.30.2
     Python 3.10.18
     ConfigArgParse 1.7.1
     google-i18n-address 3.1.1
@@ -1234,7 +1234,7 @@ li > p:last-of-type:only-child {
 <dd class="workgroup">OpenID Connect</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-09-08" class="published">8 September 2025</time>
+<time datetime="2025-09-09" class="published">9 September 2025</time>
     </dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
@@ -1558,7 +1558,8 @@ grant_type=authorization_code&amp;code=SplxlOBeZQQYbYS6WxSbIA
       <h2 id="name-privacy-considerations">
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-privacy-considerations" class="section-name selfRef">Privacy Considerations</a>
       </h2>
-<p id="section-2-1"><em>To be completed.</em><a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-1">Public key bound ID Tokens will often contain personal (PII). The RP SHOULD obtain user consent before sharing a Public key bound ID Token that contains PII with a third party.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-2"><em>To be completed.</em><a href="#section-2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
@@ -1568,6 +1569,9 @@ grant_type=authorization_code&amp;code=SplxlOBeZQQYbYS6WxSbIA
       </h2>
 <p id="section-3-1">Proof of possession authentication provides a greater level of security than bearer token authentication. To authenticate with a bearer token, the authentication secret must be sent over the internet to the authenticating party. This presents a risk that the authentication secret be stolen is transit or stolen at the server endpoint and replayed. With proof of possession, the authentication secret, i.e. the private key, never needs to leave the client. This reduces the chance of exposure and allows the client to use additional security mechanisms to protect the private key such as HSMs (Hardware Security Modules) or web browser based SSMs (Software Security Modules).<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">Public key bound ID Tokens provide a higher level security than bearer ID Tokens by using proof of possession rather than bearer authentication. For this reason public key bound ID Tokens MUST NOT be accepted as a form of bearer token authentication. If bearer token authentication is desired, bearer ID Tokens should be used instead.<a href="#section-3-2" class="pilcrow">¶</a></p>
+<blockquote id="section-3-3">
+        <p id="section-3-3.1">NOTE: add considerations regarding cross protocol JWT confusion and key reuse.<a href="#section-3-3.1" class="pilcrow">¶</a></p>
+</blockquote>
 </section>
 </div>
 <div id="iana-considerations">
@@ -1643,7 +1647,7 @@ Subtype name: dpop+id_token<a href="#section-4-1" class="pilcrow">¶</a></p>
       <h2 id="name-acknowledgements">
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-acknowledgements" class="section-name selfRef">Acknowledgements</a>
       </h2>
-<p id="appendix-A-1">The authors would like to thank early feedback provided by Filip Skokan, Jacob Ideskog, and Kosuke Koiwai.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">The authors would like to thank early feedback provided by Filip Skokan, George Fletcher, Jacob Ideskog, and Kosuke Koiwai.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="notices">
