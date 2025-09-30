@@ -38,11 +38,11 @@ OpenID Key Binding specifies how to bind a public key to an OpenID Connect ID To
 
 OpenID Connect is a protocol that enables a Relying Party (RP) to delegate authentication and obtain identity claims to an OpenID Connect Provider (OP).
 
-When authenticating with OpenID Connect, RP provides a nonce in its authentication request. The ID Token signed and returned by the OP contains the nonce and claims about the user. When verifying the ID Token, the RP confirms it contains the nonce, binding the session that made the request to the response.
+When authenticating with OpenID Connect, an RP provides a nonce in its authentication request. The ID Token signed and returned by the OP contains the nonce and claims about the user. When verifying the ID Token, the RP confirms it contains the nonce, binding the session that made the request to the response.
 
-When an RP wants to prove to another system that it has authenticated a user, it may present the ID Token as a bearer token. However, bearer tokens are vulnerable to theft and replay attacks - if an attacker intercepts the ID Token, they can impersonate the authenticated user to downstream systems that accept a ID Token as a bearer token.
+It is common for an RP to be composed of multiple components. When the RP authenticating component that obtained the ID Token wants to prove to an RP consuming component that it has authenticated a user, it may present the ID Token as a bearer token. However, bearer tokens are vulnerable to theft and replay attacks - if an attacker obtains the ID Token, they can impersonate the authenticated user.
 
-By binding a cryptographic key to the ID Token, the RP can prove to downstream systems not only that a user has been authenticated, but that the RP itself was the original recipient of that authentication. This transforms the ID Token from a vulnerable bearer token into a proof-of-possession token that provides stronger security guarantees.
+By binding a cryptographic key to the ID Token, the RP authenticating component can prove to RP consuming components not only that a user has been authenticated, but that the RP authenticating component itself was the original recipient of that authentication. This transforms the ID Token from a vulnerable bearer token into a proof-of-possession token that provides stronger security guarantees.
 
 This specification profiles OpenID Connect 1.0, RFC8628 - OAuth 2.0 Device Authorization Grant, and RFC9449 - OAuth 2.0 Demonstrating Proof of Possession (DPoP) to enable cryptographically bound ID Tokens that resist theft and replay attacks while maintaining compatibility with existing OpenID Connect infrastructure.
 
@@ -107,7 +107,7 @@ The OP's OpenID Connect Metadata Document ({{OpenID.Discovery}})SHOULD include":
 
 ## Authentication Request - Authorization Code Flow
 
-If the RP is running on a device that supports a web browser, it makes an authorization request per {{OpenID.Core}} 3.1. In addition to the `scope` parameter containing `openid`, and the `response_type` having the value `code`, the `scope` parameter MUST also include `bound_key`, and the request MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint {{RFC7638}} of the proof-of-possession public key using the SHA-256 hash function, as defined in {{RFC9449}} section 10.
+If the RP authenticating component is running on a device that supports a web browser, it makes an authorization request per {{OpenID.Core}} 3.1. In addition to the `scope` parameter containing `openid`, and the `response_type` having the value `code`, the `scope` parameter MUST also include `bound_key`, and the request MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint {{RFC7638}} of the proof-of-possession public key using the SHA-256 hash function, as defined in {{RFC9449}} section 10.
 
 Following is a non-normative example of an authentication request using the authorization code flow:
 
@@ -128,7 +128,7 @@ If the OP does not support the `bound_key` scope, it SHOULD ignore it per {{Open
 
 ## Authentication Request - Device Authorization Flow
 
-If the RP is running on a device that does not support a web browser, it makes an authorization request per {{RFC8628}} 3.1. In the request, the `scope` parameter MUST contain both `openid` and `bound_key`. The request MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint {{RFC7638}} of the proof-of-possession public key using the SHA-256 hash function, as defined in {{RFC9449}} section 10.
+If the RP authenticating component is running on a device that does not support a web browser, it makes an authorization request per {{RFC8628}} 3.1. In the request, the `scope` parameter MUST contain both `openid` and `bound_key`. The request MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint {{RFC7638}} of the proof-of-possession public key using the SHA-256 hash function, as defined in {{RFC9449}} section 10.
 
 Following is a non-normative example of an authentication request using the device authorization flow:
 
@@ -156,7 +156,7 @@ TBD
 
 ## Token Request
 
-To obtain the ID Token, the RP:
+To obtain the ID Token, the RP authenticating component:
 
 1. generates a `c_hash` by computing a SHA256 hash of the authorization `code`
 2. converts the hash to BASE64URL 
@@ -185,7 +185,7 @@ If a DPoP header is included in the token request to the OP, and the `dpop_jkt` 
 
 The OP MUST:
 - perform all verification steps as described in {{RFC9449}} section 5.
-- calculate the `c_hash` from the authorization `code` just as the RP id.
+- calculate the `c_hash` from the authorization `code` just as the RP component did.
 - confirm the `c_hash` in the DPoP JWT matches its calculated `c_hash`
 
 ## Token Response
@@ -215,26 +215,41 @@ Non-normative example of the ID Token payload:
 }
 ```
 
+## ID Token Proof of Possession
+
+The mechanism for how an RP authenticating component proves to an RP consuming component that it possesses the private keys associated with the `cnf` claim in the ID Token is out of scope of this document.
+
 # Privacy Considerations
 
-Public key bound ID Tokens will often contain personal (PII). The RP SHOULD obtain user consent before sharing a Public key bound ID Token that contains PII with a third party.
-
-*To be completed.*
+An RP authenticating component SHOULD only share an ID Token with a consuming component when such sharing is consistent with the original purpose for which the PII was collected and the scope of consent obtained from the user.
 
 # Security Considerations
 
-Proof of possession authentication provides a greater level of security than bearer token authentication. To authenticate with a bearer token, the authentication secret must be sent over the internet to the authenticating party. This presents a risk that the authentication secret be stolen is transit or stolen at the server endpoint and replayed. With proof of possession, the authentication secret, i.e. the private key, never needs to leave the client. This reduces the chance of exposure and allows the client to use additional security mechanisms to protect the private key such as HSMs (Hardware Security Modules) or web browser based SSMs (Software Security Modules).
+## Require Proof of Possesion
 
-Public key bound ID Tokens provide a higher level security than bearer ID Tokens by using proof of possession rather than bearer authentication. For this reason public key bound ID Tokens MUST NOT be accepted as a form of bearer token authentication. If bearer token authentication is desired, bearer ID Tokens should be used instead.
+An RP consuming component MUST NOT trust an ID Token with a `cnf` claim without a corresponding proof of possession from the RP authenticating component.
 
-> NOTE: add considerations regarding cross protocol JWT confusion and key reuse.
+
+## ID Token Reverification
+
+In addition to verifying the signature created by the RP authenticating component to prove possession of the private key associated with the `cnf` claim in the ID Token, an RP consuming component MUST independently verify the signature and validity of the ID Token and that the `aud` claim in the payload is the correct value, and that the `typ` claim in the protected header is `id_token+cnf`.
+
+
+## Use as Access Token
+
+The RP authenticating component, nor an RP consuming component, MUST NOT use the ID Token as an access token to access resources.
+
+## Unique Key Pair
+
+To prevent token confusion attacks, the RP authenticating component SHOULD bind a unique key pair to its ID Tokens, and not use it for other purposes.
+
 
 # IANA Considerations
 
 Media Type Registry
 The following entry should be added to the "Media Types" registry for the new JWT type:
 Type name: application
-Subtype name: dpop+id_token
+Subtype name: id_token+cnf
 
 # References
 
