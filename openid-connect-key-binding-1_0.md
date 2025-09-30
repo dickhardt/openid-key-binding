@@ -219,6 +219,8 @@ Non-normative example of the ID Token payload:
 
 The mechanism for how an RP authenticating component proves to an RP consuming component that it possesses the private keys associated with the `cnf` claim in the ID Token is out of scope of this document.
 
+> If the WG wants to, we can also profile how to use KB to bind a proof of possession to an ID Token for presentation when a proof of possesion is not present.
+
 # Privacy Considerations
 
 An RP authenticating component SHOULD only share an ID Token with a consuming component when such sharing is consistent with the original purpose for which the PII was collected and the scope of consent obtained from the user.
