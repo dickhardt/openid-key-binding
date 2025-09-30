@@ -245,6 +245,9 @@ The RP authenticating component, nor an RP consuming component, MUST NOT use the
 
 To prevent token confusion attacks, the RP authenticating component SHOULD bind a unique key pair to its ID Tokens, and not use it for other purposes.
 
+## Using cnf as a User Claim
+
+The `cnf` claim in the ID Token MUST NOT be used as proof a party presenting the ID Token controls the key identified by `cnf`. A  proof of possession is REQUIRED to establish that a party controls the key identified by `cnf`. The `cnf` claim SHOULD only be used to bind a signed object with the other claims in the ID Token.
 
 # IANA Considerations
 
