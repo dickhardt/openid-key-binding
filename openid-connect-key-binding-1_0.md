@@ -46,6 +46,8 @@ By binding a cryptographic key to the ID Token, the RP authenticating component 
 
 The RP may also prove possesion of the bound key when presenting an ID Token back to the OP.
 
+Use cases include: a mobile app that has received an ID Token exchanging the ID Token with a proof of possession with a first party authorization service for an access token; an instance of a peer to peer application such as video conferencing where one instance of the application sends the ID Token with a proof of posession to a second instance to prove which user is operating the first intance.
+
 This specification profiles OpenID Connect 1.0, RFC8628 - OAuth 2.0 Device Authorization Grant, and RFC9449 - OAuth 2.0 Demonstrating Proof of Possession (DPoP) to enable cryptographically bound ID Tokens that resist theft and replay attacks while maintaining compatibility with existing OpenID Connect infrastructure.
 
 
