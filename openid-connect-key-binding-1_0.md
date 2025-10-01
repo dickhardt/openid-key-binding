@@ -233,7 +233,6 @@ An RP authenticating component SHOULD only share an ID Token with a consuming co
 
 An RP consuming component MUST NOT trust an ID Token with a `cnf` claim without a corresponding proof of possession from the RP authenticating component.
 
-
 ## ID Token Reverification
 
 In addition to verifying the signature created by the RP authenticating component to prove possession of the private key associated with the `cnf` claim in the ID Token, an RP consuming component MUST independently verify the signature and validity of the ID Token and that the `aud` claim in the payload is the correct value, and that the `typ` claim in the protected header is `id_token+cnf`.
@@ -241,7 +240,7 @@ In addition to verifying the signature created by the RP authenticating componen
 
 ## Use as Access Token
 
-The RP authenticating component, nor an RP consuming component, MUST NOT use the ID Token as an access token to access resources.
+The ID Token MUST NOT be used as an access token to access resources. The RP MAY exchange the ID Token with a proof of possesion for an access token that can then be used to access resources.
 
 ## Unique Key Pair
 
@@ -249,7 +248,7 @@ To prevent token confusion attacks, the RP authenticating component SHOULD bind 
 
 ## Using cnf as a User Claim
 
-The `cnf` claim in the ID Token MUST NOT be used as proof a party presenting the ID Token controls the key identified by `cnf`. A  proof of possession is REQUIRED to establish that a party controls the key identified by `cnf`. The `cnf` claim SHOULD only be used to bind a signed object with the other claims in the ID Token.
+The `cnf` claim in the ID Token MUST be verified together with proof of possession and MUST NOT be treated as proof on its own. A proof of possession is REQUIRED to establish that a party controls the key identified by `cnf`. The `cnf` claim SHOULD only be used to bind a signed object with the other claims in the ID Token.
 
 # IANA Considerations
 
