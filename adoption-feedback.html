@@ -1219,7 +1219,7 @@ li > p:last-of-type:only-child {
 <thead><tr>
 <td class="left"></td>
 <td class="center">openid-connect-key-binding</td>
-<td class="right">September 2025</td>
+<td class="right">October 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Hardt &amp; Heilman</td>
@@ -1234,7 +1234,7 @@ li > p:last-of-type:only-child {
 <dd class="workgroup">OpenID Connect</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-09-30" class="published">30 September 2025</time>
+<time datetime="2025-10-01" class="published">1 October 2025</time>
     </dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
@@ -1619,7 +1619,7 @@ grant_type=authorization_code&amp;code=SplxlOBeZQQYbYS6WxSbIA
         <h3 id="name-use-as-access-token">
 <a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-use-as-access-token" class="section-name selfRef">Use as Access Token</a>
         </h3>
-<p id="section-3.3-1">The RP authenticating component, nor an RP consuming component, MUST NOT use the ID Token as an access token to access resources.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+<p id="section-3.3-1">The ID Token MUST NOT be used as an access token to access resources. The RP MAY exchange the ID Token with a proof of possesion for an access token that can then be used to access resources.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="unique-key-pair">
@@ -1635,7 +1635,7 @@ grant_type=authorization_code&amp;code=SplxlOBeZQQYbYS6WxSbIA
         <h3 id="name-using-cnf-as-a-user-claim">
 <a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-using-cnf-as-a-user-claim" class="section-name selfRef">Using cnf as a User Claim</a>
         </h3>
-<p id="section-3.5-1">The <code>cnf</code> claim in the ID Token MUST NOT be used as proof a party presenting the ID Token controls the key identified by <code>cnf</code>. A  proof of possession is REQUIRED to establish that a party controls the key identified by <code>cnf</code>. The <code>cnf</code> claim SHOULD only be used to bind a signed object with the other claims in the ID Token.<a href="#section-3.5-1" class="pilcrow">¶</a></p>
+<p id="section-3.5-1">The <code>cnf</code> claim in the ID Token MUST be verified together with proof of possession and MUST NOT be treated as proof on its own. A proof of possession is REQUIRED to establish that a party controls the key identified by <code>cnf</code>. The <code>cnf</code> claim SHOULD only be used to bind a signed object with the other claims in the ID Token.<a href="#section-3.5-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
