@@ -52,7 +52,7 @@ jobs:
 
       - name: Convert Markdown to RFC XML with MMark
         run: |
-          mmark -xml2rfc openid-connect-key-binding-1_0.md > openid-connect-key-binding-1_0.xml
+          mmark -2 openid-connect-key-binding-1_0.md > openid-connect-key-binding-1_0.xml
 
       - name: Upload XML artifact
         uses: actions/upload-artifact@v4
