@@ -103,7 +103,7 @@ This specification profiles how to bind a public key to an ID Token by:
 
 ## OpenID Connect Metadata
 
-The OP's OpenID Connect Metadata Document ({{OpenID.Discovery}}) SHOULD include":
+The OP's OpenID Connect Metadata Document {{OpenID.Discovery}} SHOULD include":
 
 - the `bound_key` scope in the `supported_scopes`
 - the `dpop_signing_alg_values_supported` property containing a list of supported algorithms as defined in IANA.JOSE.ALGS 
