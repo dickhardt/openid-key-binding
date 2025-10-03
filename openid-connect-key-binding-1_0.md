@@ -27,10 +27,39 @@ organization="Cloudflare"
     email = "ethan.r.heilman@gmail.com"
 
 %%%
+<reference anchor="OpenID.Core" target="https://openid.net/specs/openid-connect-core-1_0.html">
+  <front>
+    <title>OpenID Connect Core 1.0 (incorporating errata set 2)</title>
+    <author fullname="Nat Sakimura" initials="N." surname="Sakimura"/>
+    <author fullname="Michael B. Jones" initials="M." surname="Jones"/>
+    <author fullname="John Bradley" initials="J." surname="Bradley"/>
+    <date year="2023" month="December" day="15"/>
+  </front>
+</reference>
+
+<reference anchor="OpenID.Discovery" target="https://openid.net/specs/openid-connect-discovery-1_0.html">
+  <front>
+    <title>OpenID Connect Discovery 1.0 (incorporating errata set 2)</title>
+    <author fullname="Nat Sakimura" initials="N." surname="Sakimura"/>
+    <author fullname="Michael B. Jones" initials="M." surname="Jones"/>
+    <author fullname="John Bradley" initials="J." surname="Bradley"/>
+    <author fullname="Edmund Jay" initials="E." surname="Jay"/>
+    <date year="2023" month="December" day="15"/>
+  </front>
+</reference>
+
+<reference anchor="IANA.JOSE.ALGS" target="https://www.iana.org/assignments/jose/jose.xhtml#web-signature-encryption-algorithms">
+  <front>
+    <title>IANA JSON Web Signature and Encryption Algorithms Registry</title>
+    <author fullname="IANA"/>
+    <date year="2025"/>
+  </front>
+</reference>
 
 .# Abstract
 
-OpenID Key Binding specifies how to bind a public key to an OpenID Connect ID Token using mechanisms defined in RFC 9449, OAuth 2.0 Demonstrating Proof of Possession (DPoP).
+
+OpenID Key Binding specifies how to bind a public key to an OpenID Connect ID Token using mechanisms defined in [@!RFC9449], OAuth 2.0 Demonstrating Proof of Possession (DPoP).
 
 {mainmatter}
 
@@ -48,14 +77,14 @@ The RP may also prove possession of the bound key when presenting an ID Token ba
 
 Use cases include: a mobile app that has received an ID Token exchanging the ID Token with a proof of possession with a first party authorization service for an access token; an instance of a peer to peer application such as video conferencing where one instance of the application sends the ID Token with a proof of possession to a second instance to prove which user is operating the first instance.
 
-This specification profiles OpenID Connect 1.0, RFC8628 - OAuth 2.0 Device Authorization Grant, and RFC9449 - OAuth 2.0 Demonstrating Proof of Possession (DPoP) to enable cryptographically bound ID Tokens that resist theft and replay attacks while maintaining compatibility with existing OpenID Connect infrastructure.
+This specification profiles OpenID Connect 1.0 [@!OpenID.Core], RFC8628 - OAuth 2.0 Device Authorization Grant [@!RFC8626], and RFC9449 - OAuth 2.0 Demonstrating Proof of Possession (DPoP) [@!RFC9449] to enable cryptographically bound ID Tokens that resist theft and replay attacks while maintaining compatibility with existing OpenID Connect infrastructure.
 
 
 ## Requirements Notation and Conventions
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this
-document are to be interpreted as described in {{RFC2119}}.
+document are to be interpreted as described in [@!RFC2119].
 
 In the .txt version of this specification,
 values are quoted to indicate that they are to be taken literally.
@@ -69,11 +98,11 @@ the use of *this fixed-width font*.
 
 This specification uses the following terms:
 
-- **OP**: The OpenID Provider as defined in {{OpenID.Core}}.
+- **OP**: The OpenID Provider as defined in [@!OpenID.Core].
 
-- **RP**: The Relying Party as defined in {{OpenID.Core}}. 
+- **RP**: The Relying Party as defined in [@!OpenID.Core]. 
 
-The parameters **dpop_jkt** and **DPoP** as defined in {{RFC9449}}
+The parameters **dpop_jkt** and **DPoP** as defined in [@!RFC9449]
 
 ## Protocol Profile Overview
 
@@ -103,15 +132,15 @@ This specification profiles how to bind a public key to an ID Token by:
 
 ## OpenID Connect Metadata
 
-The OP's OpenID Connect Metadata Document {{OpenID.Discovery}} SHOULD include":
+The OP's OpenID Connect Metadata Document [@!OpenID.Discovery] SHOULD include:
 
 - the `bound_key` scope in the `supported_scopes`
-- the `dpop_signing_alg_values_supported` property containing a list of supported algorithms as defined in IANA.JOSE.ALGS 
+- the `dpop_signing_alg_values_supported` property containing a list of supported algorithms as defined in [@?IANA.JOSE.ALGS] 
 
 
 ## Authentication Request - Authorization Code Flow
 
-If the RP authenticating component is running on a device that supports a web browser, it makes an authorization request per {{OpenID.Core}} 3.1. In addition to the `scope` parameter containing `openid`, and the `response_type` having the value `code`, the `scope` parameter MUST also include `bound_key`, and the request MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint {{RFC7638}} of the proof-of-possession public key using the SHA-256 hash function, as defined in {{RFC9449}} section 10.
+If the RP authenticating component is running on a device that supports a web browser, it makes an authorization request per [@!OpenID.Core] 3.1. In addition to the `scope` parameter containing `openid`, and the `response_type` having the value `code`, the `scope` parameter MUST also include `bound_key`, and the request MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint [@!RFC7638] of the proof-of-possession public key using the SHA-256 hash function, as defined in [@!RFC9449] section 10.
 
 Following is a non-normative example of an authentication request using the authorization code flow:
 
@@ -127,12 +156,12 @@ response_type=code
 Host: server.example.com
 ```
 
-If the OP does not support the `bound_key` scope, it SHOULD ignore it per {{OpenID.Core}} 3.1.2.1.
+If the OP does not support the `bound_key` scope, it SHOULD ignore it per [@!OpenID.Core] 3.1.2.1.
 
 
 ## Authentication Request - Device Authorization Flow
 
-If the RP authenticating component is running on a device that does not support a web browser, it makes an authorization request per {{RFC8628}} 3.1. In the request, the `scope` parameter MUST contain both `openid` and `bound_key`. The request MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint {{RFC7638}} of the proof-of-possession public key using the SHA-256 hash function, as defined in {{RFC9449}} section 10.
+If the RP authenticating component is running on a device that does not support a web browser, it makes an authorization request per [@!RFC8628] 3.1. In the request, the `scope` parameter MUST contain both `openid` and `bound_key`. The request MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint [@!RFC7638] of the proof-of-possession public key using the SHA-256 hash function, as defined in [@!RFC9449] section 10.
 
 Following is a non-normative example of an authentication request using the device authorization flow:
 
@@ -142,7 +171,7 @@ TBD
 ```
 
 
-If the OP does not support the `bound_key` scope, it SHOULD ignore it per {{OpenID.Core}} 3.1.2.1.
+If the OP does not support the `bound_key` scope, it SHOULD ignore it per [@!OpenID.Core] 3.1.2.1.
 
 
 ## Authentication Response
@@ -188,13 +217,13 @@ If a DPoP header is included in the token request to the OP, and the `dpop_jkt` 
 > This prevents an existing deployment using DPoP for access token from having them included in ID Tokens accidentally.
 
 The OP MUST:
-- perform all verification steps as described in {{RFC9449}} section 5.
+- perform all verification steps as described in [@!RFC9449] section 5.
 - calculate the `c_hash` from the authorization `code` just as the RP component did.
 - confirm the `c_hash` in the DPoP JWT matches its calculated `c_hash`
 
 ## Token Response
 
-If the token request was successful, the OP MUST return an ID Token containing the `cnf` claim as defined in {{RFC7800}} set to the jwk of the user's public key and with  `typ` set to `id_token+cnf` in the ID Token's protected header.
+If the token request was successful, the OP MUST return an ID Token containing the `cnf` claim as defined in [@!RFC7800] set to the jwk of the user's public key and with  `typ` set to `id_token+cnf` in the ID Token's protected header.
 
 Non-normative example of the ID Token payload:
 
@@ -259,25 +288,6 @@ The following entry should be added to the "Media Types" registry for the new JW
 Type name: application
 
 Subtype name: dpop+id_token
-
-# References
-
-## Normative References
-
-- **[RFC2119]** Bradner, S. “Key words for use in RFCs to Indicate Requirement Levels,” *RFC 2119*, March 1997.
-- **[RFC7549]** W. Mills, P. Saint-Andre, T. Hardie, “The OAuth 2.0 Authorization Framework: Bearer Token Usage,” RFC 7549, May 2015. Available at <https://datatracker.ietf.org/doc/html/rfc7549>.
-- **[RFC7638]** M. Jones, “JSON Web Key (JWK) Thumbprint,” RFC 7638, September 2015. Available at <https://datatracker.ietf.org/doc/html/rfc7638>.
-- **[RFC7800]** M. Jones, J. Bradley, N. Sakimura, “Proof-of-Possession Key Semantics for JSON Web Tokens (JWTs),” RFC 7800, April 2016. Available at <https://datatracker.ietf.org/doc/html/rfc7800>.
-- **[RFC8628]** W. Denniss, J. Bradley, “OAuth 2.0 Device Authorization Grant,” RFC 8628, June 2019. Available at <https://datatracker.ietf.org/doc/html/rfc8628>.
-- **[RFC9449]** D. Fett, B. Campbell, J. Bradley, “OAuth 2.0 Demonstrating Proof-of-Possession at the Application Layer (DPoP),” RFC 9449, July 2023. Available at <https://datatracker.ietf.org/doc/html/rfc9449>.
-
-- **[OpenID.Core]** – “OpenID Connect Core 1.0 incorporating errata set 2,” available at <https://openid.net/specs/openid-connect-core-1_0.html>.
-- **[OpenID.Discovery]** – “OpenID Connect Discovery 1.0,” available at <https://openid.net/specs/openid-connect-discovery-1_0.html>.
-
-## Informative References
-
-- **IANA JSON Web Token Claims Registry**, available at <https://www.iana.org/assignments/jwt/jwt.xhtml>.
-- **IANA OAuth Parameters**, available at <https://www.iana.org/assignments/oauth-parameters/oauth-parameters.xhtml#client-metadata>.
 
 {backmatter}
 
