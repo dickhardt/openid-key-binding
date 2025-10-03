@@ -59,7 +59,7 @@ organization="Cloudflare"
 .# Abstract
 
 
-OpenID Key Binding specifies how to bind a public key to an OpenID Connect ID Token using mechanisms defined in RFC 9449, OAuth 2.0 Demonstrating Proof of Possession (DPoP).
+OpenID Key Binding specifies how to bind a public key to an OpenID Connect ID Token using mechanisms defined in [@!RFC9449], OAuth 2.0 Demonstrating Proof of Possession (DPoP).
 
 {mainmatter}
 
