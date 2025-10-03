@@ -26,7 +26,6 @@ organization="Cloudflare"
     [author.address]
     email = "ethan.r.heilman@gmail.com"
 
-
 [normative.RFC2119]
 title = "Key words for use in RFCs to Indicate Requirement Levels"
 target = "https://www.rfc-editor.org/rfc/rfc2119"
@@ -61,7 +60,6 @@ title  = "IANA JSON Web Signature and Encryption Algorithms Registry"
 target = "https://www.iana.org/assignments/jose/jose.xhtml#web-signature-encryption-algorithms"
 
 %%%
-
 .# Abstract
 
 OpenID Key Binding specifies how to bind a public key to an OpenID Connect ID Token using mechanisms defined in RFC 9449, OAuth 2.0 Demonstrating Proof of Possession (DPoP).
