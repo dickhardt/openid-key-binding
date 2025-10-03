@@ -44,9 +44,9 @@ It is common for an RP to be composed of multiple components such as a RP authen
 
 By binding a cryptographic key to the ID Token, the RP authenticating component can prove to RP consuming components not only that a user has been authenticated, but that the RP authenticating component itself was the original recipient of that authentication. This transforms the ID Token from a vulnerable bearer token into a proof-of-possession token that provides stronger security guarantees.
 
-The RP may also prove possesion of the bound key when presenting an ID Token back to the OP.
+The RP may also prove possession of the bound key when presenting an ID Token back to the OP.
 
-Use cases include: a mobile app that has received an ID Token exchanging the ID Token with a proof of possession with a first party authorization service for an access token; an instance of a peer to peer application such as video conferencing where one instance of the application sends the ID Token with a proof of posession to a second instance to prove which user is operating the first intance.
+Use cases include: a mobile app that has received an ID Token exchanging the ID Token with a proof of possession with a first party authorization service for an access token; an instance of a peer to peer application such as video conferencing where one instance of the application sends the ID Token with a proof of possession to a second instance to prove which user is operating the first instance.
 
 This specification profiles OpenID Connect 1.0, RFC8628 - OAuth 2.0 Device Authorization Grant, and RFC9449 - OAuth 2.0 Demonstrating Proof of Possession (DPoP) to enable cryptographically bound ID Tokens that resist theft and replay attacks while maintaining compatibility with existing OpenID Connect infrastructure.
 
@@ -271,9 +271,8 @@ Subtype name: dpop+id_token
 - **[RFC8628]** W. Denniss, J. Bradley, “OAuth 2.0 Device Authorization Grant,” RFC 8628, June 2019. Available at <https://datatracker.ietf.org/doc/html/rfc8628>.
 - **[RFC9449]** D. Fett, B. Campbell, J. Bradley, “OAuth 2.0 Demonstrating Proof-of-Possession at the Application Layer (DPoP),” RFC 9449, July 2023. Available at <https://datatracker.ietf.org/doc/html/rfc9449>.
 
-
-- **OpenID.Core** – “OpenID Connect Core 1.0 incorporating errata set 2,” available at <https://openid.net/specs/openid-connect-core-1_0.html>.
-- **OpenID.Discovery** – “OpenID Connect Discovery 1.0,” available at <https://openid.net/specs/openid-connect-discovery-1_0.html>.
+- **[OpenID.Core]** – “OpenID Connect Core 1.0 incorporating errata set 2,” available at <https://openid.net/specs/openid-connect-core-1_0.html>.
+- **[OpenID.Discovery]** – “OpenID Connect Discovery 1.0,” available at <https://openid.net/specs/openid-connect-discovery-1_0.html>.
 
 ## Informative References
 
