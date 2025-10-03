@@ -103,7 +103,7 @@ This specification profiles how to bind a public key to an ID Token by:
 
 ## OpenID Connect Metadata
 
-The OP's OpenID Connect Metadata Document ({{OpenID.Discovery}})SHOULD include":
+The OP's OpenID Connect Metadata Document ({{OpenID.Discovery}}) SHOULD include":
 
 - the `bound_key` scope in the `supported_scopes`
 - the `dpop_signing_alg_values_supported` property containing a list of supported algorithms as defined in IANA.JOSE.ALGS 
@@ -254,21 +254,22 @@ The `cnf` claim in the ID Token MUST be verified together with proof of possessi
 
 # IANA Considerations
 
-Media Type Registry
 The following entry should be added to the "Media Types" registry for the new JWT type:
+
 Type name: application
-Subtype name: id_token+cnf
+
+Subtype name: dpop+id_token
 
 # References
 
 ## Normative References
 
 - **[RFC2119]** Bradner, S. “Key words for use in RFCs to Indicate Requirement Levels,” *RFC 2119*, March 1997.
- - **[RFC7549]** W. Mills, P. Saint-Andre, T. Hardie, “The OAuth 2.0 Authorization Framework: Bearer Token Usage,” RFC 7549, May 2015. Available at <https://datatracker.ietf.org/doc/html/rfc7549>.
- - **[RFC7638]** M. Jones, “JSON Web Key (JWK) Thumbprint,” RFC 7638, September 2015. Available at <https://datatracker.ietf.org/doc/html/rfc7638>.
- - **[RFC7800]** M. Jones, J. Bradley, N. Sakimura, “Proof-of-Possession Key Semantics for JSON Web Tokens (JWTs),” RFC 7800, April 2016. Available at <https://datatracker.ietf.org/doc/html/rfc7800>.
- - **[RFC8628]** W. Denniss, J. Bradley, “OAuth 2.0 Device Authorization Grant,” RFC 8628, June 2019. Available at <https://datatracker.ietf.org/doc/html/rfc8628>.
- - **[RFC9449]** D. Fett, B. Campbell, J. Bradley, “OAuth 2.0 Demonstrating Proof-of-Possession at the Application Layer (DPoP),” RFC 9449, July 2023. Available at <https://datatracker.ietf.org/doc/html/rfc9449>.
+- **[RFC7549]** W. Mills, P. Saint-Andre, T. Hardie, “The OAuth 2.0 Authorization Framework: Bearer Token Usage,” RFC 7549, May 2015. Available at <https://datatracker.ietf.org/doc/html/rfc7549>.
+- **[RFC7638]** M. Jones, “JSON Web Key (JWK) Thumbprint,” RFC 7638, September 2015. Available at <https://datatracker.ietf.org/doc/html/rfc7638>.
+- **[RFC7800]** M. Jones, J. Bradley, N. Sakimura, “Proof-of-Possession Key Semantics for JSON Web Tokens (JWTs),” RFC 7800, April 2016. Available at <https://datatracker.ietf.org/doc/html/rfc7800>.
+- **[RFC8628]** W. Denniss, J. Bradley, “OAuth 2.0 Device Authorization Grant,” RFC 8628, June 2019. Available at <https://datatracker.ietf.org/doc/html/rfc8628>.
+- **[RFC9449]** D. Fett, B. Campbell, J. Bradley, “OAuth 2.0 Demonstrating Proof-of-Possession at the Application Layer (DPoP),” RFC 9449, July 2023. Available at <https://datatracker.ietf.org/doc/html/rfc9449>.
 
 
 - **OpenID.Core** – “OpenID Connect Core 1.0 incorporating errata set 2,” available at <https://openid.net/specs/openid-connect-core-1_0.html>.
