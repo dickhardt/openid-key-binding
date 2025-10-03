@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="Internet-Draft">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
@@ -14,7 +14,7 @@
 <meta content="security" name="keyword">
 <meta content="openid" name="keyword">
 <meta content="lifecycle" name="keyword">
-<meta name="ietf.draft">
+<meta content="openid-key-binding-1_0" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.30.2
     Python 3.10.18
@@ -1445,7 +1445,7 @@ the use of <em>this fixed-width font</em>.<a href="#section-1.1-2" class="pilcro
         </h3>
 <p id="section-1.5-1">If the RP authenticating component is running on a device that supports a web browser, it makes an authorization request per {{OpenID.Core}} 3.1. In addition to the <code>scope</code> parameter containing <code>openid</code>, and the <code>response_type</code> having the value <code>code</code>, the <code>scope</code> parameter MUST also include <code>bound_key</code>, and the request MUST include the <code>dpop_jkt</code> parameter having the value of the JWK Thumbprint {{RFC7638}} of the proof-of-possession public key using the SHA-256 hash function, as defined in {{RFC9449}} section 10.<a href="#section-1.5-1" class="pilcrow">¶</a></p>
 <p id="section-1.5-2">Following is a non-normative example of an authentication request using the authorization code flow:<a href="#section-1.5-2" class="pilcrow">¶</a></p>
-<div class="lang-text sourcecode" id="section-1.5-3">
+<div class="alignLeft art-text artwork" id="section-1.5-3">
 <pre>GET /authorize?
 response_type=code
 &amp;dpop_jkt=1f2e6338febe335e2cbaa7c7154c3cbdcfd8650f95c5fe7206bb6360e37f4b5a
@@ -1467,7 +1467,7 @@ Host: server.example.com
         </h3>
 <p id="section-1.6-1">If the RP authenticating component is running on a device that does not support a web browser, it makes an authorization request per {{RFC8628}} 3.1. In the request, the <code>scope</code> parameter MUST contain both <code>openid</code> and <code>bound_key</code>. The request MUST include the <code>dpop_jkt</code> parameter having the value of the JWK Thumbprint {{RFC7638}} of the proof-of-possession public key using the SHA-256 hash function, as defined in {{RFC9449}} section 10.<a href="#section-1.6-1" class="pilcrow">¶</a></p>
 <p id="section-1.6-2">Following is a non-normative example of an authentication request using the device authorization flow:<a href="#section-1.6-2" class="pilcrow">¶</a></p>
-<div class="lang-text sourcecode" id="section-1.6-3">
+<div class="alignLeft art-text artwork" id="section-1.6-3">
 <pre>TBD
 
 </pre><a href="#section-1.6-3" class="pilcrow">¶</a>
@@ -1483,7 +1483,7 @@ Host: server.example.com
 <p id="section-1.7-1">If the key provided was not previously bound to the client, the OP SHOULD inform a user and obtain consent that a key binding will be done.<a href="#section-1.7-1" class="pilcrow">¶</a></p>
 <p id="section-1.7-2">On successful authentication of, and consent from the user, the OP returns an authorization <code>code</code>.<a href="#section-1.7-2" class="pilcrow">¶</a></p>
 <p id="section-1.7-3">Following is a non-normative example of a response:<a href="#section-1.7-3" class="pilcrow">¶</a></p>
-<div class="lang-text sourcecode" id="section-1.7-4">
+<div class="alignLeft art-text artwork" id="section-1.7-4">
 <pre>TBD
 </pre><a href="#section-1.7-4" class="pilcrow">¶</a>
 </div>
@@ -1507,7 +1507,7 @@ Host: server.example.com
 </li>
         </ol>
 <p id="section-1.8-3">Non-normative example:<a href="#section-1.8-3" class="pilcrow">¶</a></p>
-<div class="lang-text sourcecode" id="section-1.8-4">
+<div class="alignLeft art-text artwork" id="section-1.8-4">
 <pre>POST /token HTTP/1.1
 Host: server.example.com
 Content-Type: application/x-www-form-urlencoded
@@ -1523,9 +1523,11 @@ grant_type=authorization_code&amp;code=SplxlOBeZQQYbYS6WxSbIA
 </pre><a href="#section-1.8-4" class="pilcrow">¶</a>
 </div>
 <p id="section-1.8-5">If a DPoP header is included in the token request to the OP, and the <code>dpop_jkt</code> parameter was not included in the authentication request, the OP MUST NOT include the <code>cnf</code> claim in the ID Token.<a href="#section-1.8-5" class="pilcrow">¶</a></p>
-<blockquote id="section-1.8-6">
-          <p id="section-1.8-6.1">This prevents an existing deployment using DPoP for access token from having them included in ID Tokens accidentally.<a href="#section-1.8-6.1" class="pilcrow">¶</a></p>
-</blockquote>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-1.8-6.1">
+            <p id="section-1.8-6.1.1">This prevents an existing deployment using DPoP for access token from having them included in ID Tokens accidentally.<a href="#section-1.8-6.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
 <p id="section-1.8-7">The OP MUST:
 - perform all verification steps as described in {{RFC9449}} section 5.
 - calculate the <code>c_hash</code> from the authorization <code>code</code> just as the RP component did.
@@ -1539,7 +1541,7 @@ grant_type=authorization_code&amp;code=SplxlOBeZQQYbYS6WxSbIA
         </h3>
 <p id="section-1.9-1">If the token request was successful, the OP MUST return an ID Token containing the <code>cnf</code> claim as defined in {{RFC7800}} set to the jwk of the user's public key and with  <code>typ</code> set to <code>id_token+cnf</code> in the ID Token's protected header.<a href="#section-1.9-1" class="pilcrow">¶</a></p>
 <p id="section-1.9-2">Non-normative example of the ID Token payload:<a href="#section-1.9-2" class="pilcrow">¶</a></p>
-<div class="lang-json sourcecode" id="section-1.9-3">
+<div class="alignLeft art-json art-text artwork" id="section-1.9-3">
 <pre>{
     "iss": "https://server.example.com",
     "sub": "24400320",
@@ -1568,9 +1570,11 @@ grant_type=authorization_code&amp;code=SplxlOBeZQQYbYS6WxSbIA
 <a href="#section-1.10" class="section-number selfRef">1.10. </a><a href="#name-id-token-proof-of-possessio" class="section-name selfRef">ID Token Proof of Possession</a>
         </h3>
 <p id="section-1.10-1">The mechanism for how an RP authenticating component proves to an RP consuming component that it possesses the private keys associated with the <code>cnf</code> claim in the ID Token is out of scope of this document.<a href="#section-1.10-1" class="pilcrow">¶</a></p>
-<blockquote id="section-1.10-2">
-          <p id="section-1.10-2.1">If the WG wants to, we can also profile how to use KB to bind a proof of possession to an ID Token for presentation when a proof of possesion is not present.<a href="#section-1.10-2.1" class="pilcrow">¶</a></p>
-</blockquote>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-1.10-2.1">
+            <p id="section-1.10-2.1.1">If the WG wants to, we can also profile how to use KB to bind a proof of possession to an ID Token for presentation when a proof of possesion is not present.<a href="#section-1.10-2.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
 </section>
 </div>
 </section>
