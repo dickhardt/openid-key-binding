@@ -26,40 +26,36 @@ organization="Cloudflare"
     [author.address]
     email = "ethan.r.heilman@gmail.com"
 
-[normative.RFC2119]
-title = "Key words for use in RFCs to Indicate Requirement Levels"
-target = "https://www.rfc-editor.org/rfc/rfc2119"
-
-[normative.RFC7638]
-title = "JSON Web Key (JWK) Thumbprint"
-target = "https://www.rfc-editor.org/rfc/rfc7638"
-
-[normative.RFC7800]
-title = "Proof-of-Possession Key Semantics for JSON Web Tokens (JWTs)"
-target = "https://www.rfc-editor.org/rfc/rfc7800"
-
-[normative.RFC8628]
-title = "OAuth 2.0 Device Authorization Grant"
-target = "https://www.rfc-editor.org/rfc/rfc8628"
-
-[normative.RFC9449]
-title = "OAuth 2.0 Demonstrating Proof-of-Possession at the Application Layer (DPoP)"
-target = "https://www.rfc-editor.org/rfc/rfc9449"
-
-[normative.OpenID.Core]
-title  = "OpenID Connect Core 1.0 (incorporating errata set 2)"
-target = "https://openid.net/specs/openid-connect-core-1_0.html"
-
-[normative.OpenID.Discovery]
-title  = "OpenID Connect Discovery 1.0 (incorporating errata set 2)"
-target = "https://openid.net/specs/openid-connect-discovery-1_0.html"
-
-
-[informative.IANA.JOSE.ALGS]
-title  = "IANA JSON Web Signature and Encryption Algorithms Registry"
-target = "https://www.iana.org/assignments/jose/jose.xhtml#web-signature-encryption-algorithms"
-
 %%%
+<reference anchor="OpenID.Core" target="https://openid.net/specs/openid-connect-core-1_0.html">
+  <front>
+    <title>OpenID Connect Core 1.0 (incorporating errata set 2)</title>
+    <author fullname="Nat Sakimura" initials="N." surname="Sakimura"/>
+    <author fullname="Michael B. Jones" initials="M." surname="Jones"/>
+    <author fullname="John Bradley" initials="J." surname="Bradley"/>
+    <date year="2023" month="December" day="15"/>
+  </front>
+</reference>
+
+<reference anchor="OpenID.Discovery" target="https://openid.net/specs/openid-connect-discovery-1_0.html">
+  <front>
+    <title>OpenID Connect Discovery 1.0 (incorporating errata set 2)</title>
+    <author fullname="Nat Sakimura" initials="N." surname="Sakimura"/>
+    <author fullname="Michael B. Jones" initials="M." surname="Jones"/>
+    <author fullname="John Bradley" initials="J." surname="Bradley"/>
+    <author fullname="Edmund Jay" initials="E." surname="Jay"/>
+    <date year="2023" month="December" day="15"/>
+  </front>
+</reference>
+
+<reference anchor="IANA.JOSE.ALGS" target="https://www.iana.org/assignments/jose/jose.xhtml#web-signature-encryption-algorithms">
+  <front>
+    <title>IANA JSON Web Signature and Encryption Algorithms Registry</title>
+    <author fullname="IANA"/>
+    <date year="2025"/>
+  </front>
+</reference>
+
 .# Abstract
 
 
