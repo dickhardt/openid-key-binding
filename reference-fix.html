@@ -1359,7 +1359,7 @@ li > p:last-of-type:only-child {
 <p id="section-1-4">By binding a cryptographic key to the ID Token, the RP authenticating component can prove to RP consuming components not only that a user has been authenticated, but that the RP authenticating component itself was the original recipient of that authentication. This transforms the ID Token from a vulnerable bearer token into a proof-of-possession token that provides stronger security guarantees.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <p id="section-1-5">The RP may also prove possession of the bound key when presenting an ID Token back to the OP.<a href="#section-1-5" class="pilcrow">¶</a></p>
 <p id="section-1-6">Use cases include: a mobile app that has received an ID Token exchanging the ID Token with a proof of possession with a first party authorization service for an access token; an instance of a peer to peer application such as video conferencing where one instance of the application sends the ID Token with a proof of possession to a second instance to prove which user is operating the first instance.<a href="#section-1-6" class="pilcrow">¶</a></p>
-<p id="section-1-7">This specification profiles OpenID Connect 1.0, RFC8628 - OAuth 2.0 Device Authorization Grant, and RFC9449 - OAuth 2.0 Demonstrating Proof of Possession (DPoP) to enable cryptographically bound ID Tokens that resist theft and replay attacks while maintaining compatibility with existing OpenID Connect infrastructure.<a href="#section-1-7" class="pilcrow">¶</a></p>
+<p id="section-1-7">This specification profiles OpenID Connect 1.0 <span>[<a href="#OpenID.Core" class="cite xref">OpenID.Core</a>]</span>, RFC8628 - OAuth 2.0 Device Authorization Grant <span>[<a href="#RFC8626" class="cite xref">RFC8626</a>]</span>, and RFC9449 - OAuth 2.0 Demonstrating Proof of Possession (DPoP) <span>[<a href="#RFC9449" class="cite xref">RFC9449</a>]</span> to enable cryptographically bound ID Tokens that resist theft and replay attacks while maintaining compatibility with existing OpenID Connect infrastructure.<a href="#section-1-7" class="pilcrow">¶</a></p>
 <div id="requirements-notation-and-conventions">
 <section id="section-1.1">
         <h3 id="name-requirements-notation-and-c">
@@ -1683,6 +1683,10 @@ grant_type=authorization_code&amp;code=SplxlOBeZQQYbYS6WxSbIA
 <dt id="RFC7800">[RFC7800]</dt>
         <dd>
 <span class="refAuthor">Jones, M.</span>, <span class="refAuthor">Bradley, J.</span>, and <span class="refAuthor">H. Tschofenig</span>, <span class="refTitle">"Proof-of-Possession Key Semantics for JSON Web Tokens (JWTs)"</span>, <span class="seriesInfo">RFC 7800</span>, <span class="seriesInfo">DOI 10.17487/RFC7800</span>, <time datetime="2016-04" class="refDate">April 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7800">https://www.rfc-editor.org/info/rfc7800</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8626">[RFC8626]</dt>
+        <dd>
+<span class="refTitle">"Not Issued"</span>, <span class="seriesInfo">RFC 8626</span>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8626">https://www.rfc-editor.org/info/rfc8626</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8628">[RFC8628]</dt>
         <dd>
