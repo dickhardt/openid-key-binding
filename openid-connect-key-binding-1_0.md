@@ -88,7 +88,7 @@ This specification profiles OpenID Connect 1.0, RFC8628 - OAuth 2.0 Device Autho
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this
-document are to be interpreted as described in {{RFC2119}}.
+document are to be interpreted as described in [@!RFC2119].
 
 In the .txt version of this specification,
 values are quoted to indicate that they are to be taken literally.
@@ -102,11 +102,11 @@ the use of *this fixed-width font*.
 
 This specification uses the following terms:
 
-- **OP**: The OpenID Provider as defined in {{OpenID.Core}}.
+- **OP**: The OpenID Provider as defined in [@!OpenID.Core].
 
-- **RP**: The Relying Party as defined in {{OpenID.Core}}. 
+- **RP**: The Relying Party as defined in [@!OpenID.Core]. 
 
-The parameters **dpop_jkt** and **DPoP** as defined in {{RFC9449}}
+The parameters **dpop_jkt** and **DPoP** as defined in [@!RFC9449]
 
 ## Protocol Profile Overview
 
@@ -136,15 +136,15 @@ This specification profiles how to bind a public key to an ID Token by:
 
 ## OpenID Connect Metadata
 
-The OP's OpenID Connect Metadata Document {{OpenID.Discovery}} SHOULD include":
+The OP's OpenID Connect Metadata Document [@!OpenID.Discovery] SHOULD include:
 
 - the `bound_key` scope in the `supported_scopes`
-- the `dpop_signing_alg_values_supported` property containing a list of supported algorithms as defined in IANA.JOSE.ALGS 
+- the `dpop_signing_alg_values_supported` property containing a list of supported algorithms as defined in [@?IANA.JOSE.ALGS] 
 
 
 ## Authentication Request - Authorization Code Flow
 
-If the RP authenticating component is running on a device that supports a web browser, it makes an authorization request per {{OpenID.Core}} 3.1. In addition to the `scope` parameter containing `openid`, and the `response_type` having the value `code`, the `scope` parameter MUST also include `bound_key`, and the request MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint {{RFC7638}} of the proof-of-possession public key using the SHA-256 hash function, as defined in {{RFC9449}} section 10.
+If the RP authenticating component is running on a device that supports a web browser, it makes an authorization request per [@!OpenID.Core] 3.1. In addition to the `scope` parameter containing `openid`, and the `response_type` having the value `code`, the `scope` parameter MUST also include `bound_key`, and the request MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint [@!RFC7638] of the proof-of-possession public key using the SHA-256 hash function, as defined in [@!RFC9449] section 10.
 
 Following is a non-normative example of an authentication request using the authorization code flow:
 
@@ -160,12 +160,12 @@ response_type=code
 Host: server.example.com
 ```
 
-If the OP does not support the `bound_key` scope, it SHOULD ignore it per {{OpenID.Core}} 3.1.2.1.
+If the OP does not support the `bound_key` scope, it SHOULD ignore it per [@!OpenID.Core] 3.1.2.1.
 
 
 ## Authentication Request - Device Authorization Flow
 
-If the RP authenticating component is running on a device that does not support a web browser, it makes an authorization request per {{RFC8628}} 3.1. In the request, the `scope` parameter MUST contain both `openid` and `bound_key`. The request MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint {{RFC7638}} of the proof-of-possession public key using the SHA-256 hash function, as defined in {{RFC9449}} section 10.
+If the RP authenticating component is running on a device that does not support a web browser, it makes an authorization request per [@!RFC8628] 3.1. In the request, the `scope` parameter MUST contain both `openid` and `bound_key`. The request MUST include the `dpop_jkt` parameter having the value of the JWK Thumbprint [@!RFC7638] of the proof-of-possession public key using the SHA-256 hash function, as defined in [@!RFC9449] section 10.
 
 Following is a non-normative example of an authentication request using the device authorization flow:
 
@@ -175,7 +175,7 @@ TBD
 ```
 
 
-If the OP does not support the `bound_key` scope, it SHOULD ignore it per {{OpenID.Core}} 3.1.2.1.
+If the OP does not support the `bound_key` scope, it SHOULD ignore it per [@!OpenID.Core] 3.1.2.1.
 
 
 ## Authentication Response
@@ -221,13 +221,13 @@ If a DPoP header is included in the token request to the OP, and the `dpop_jkt` 
 > This prevents an existing deployment using DPoP for access token from having them included in ID Tokens accidentally.
 
 The OP MUST:
-- perform all verification steps as described in {{RFC9449}} section 5.
+- perform all verification steps as described in [@!RFC9449] section 5.
 - calculate the `c_hash` from the authorization `code` just as the RP component did.
 - confirm the `c_hash` in the DPoP JWT matches its calculated `c_hash`
 
 ## Token Response
 
-If the token request was successful, the OP MUST return an ID Token containing the `cnf` claim as defined in {{RFC7800}} set to the jwk of the user's public key and with  `typ` set to `id_token+cnf` in the ID Token's protected header.
+If the token request was successful, the OP MUST return an ID Token containing the `cnf` claim as defined in [@!RFC7800] set to the jwk of the user's public key and with  `typ` set to `id_token+cnf` in the ID Token's protected header.
 
 Non-normative example of the ID Token payload:
 
